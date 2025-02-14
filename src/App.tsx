@@ -230,7 +230,9 @@ export default function App() {
     <footer>
       <div className="footer-container">
       <div className="company">
-        <img className="logo" src="https://c6energy.com.br/wp-content/uploads/2024/08/logo-c6-energy-colorido2-copiar.webp" alt="" />
+        <a href="https://c6energy.com.br/" target="_blank">
+          <img className="logo" src="https://c6energy.com.br/wp-content/uploads/2024/08/logo-c6-energy-colorido2-copiar.webp" alt="" />
+        </a>
         <p className="company-description">Aqui na C6 Energy proporcionamos economia e previsibilidade na sua conta de energia, sem burocracia ou necessidade de obras e manutenção.</p>
         <div className="social">
           <a href="https://www.instagram.com/c6_energy/" target="_blank">
