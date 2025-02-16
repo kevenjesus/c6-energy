@@ -18,7 +18,7 @@ interface FormProps {
 }
 
 interface ResponseProps {
-  desconto: string
+  desconto: number
   valorDesconto: string | number
   goToWhatsApp: () => void
 }
@@ -27,7 +27,7 @@ const Response = ({desconto, valorDesconto, goToWhatsApp}: ResponseProps) => {
   return (
     <div className="container-response">
       <h1 className="titulo">
-        Você <span className="selecionado">economizará {desconto}</span> em um ano, totalizando <br/> <span className="selecionado">{valorDesconto}</span> de desconto!
+        Você <span className="selecionado">economizará {desconto}% </span> em um ano, totalizando <br/> <span className="selecionado">{valorDesconto}</span> de desconto!
       </h1>
       <p className="company-description">O valor estimado é baseado na Geração Distribuída. Para o mercado livre de energia (alta tensão), o desconto pode chegar a 35%.</p>
       <p className="label">Recebemos sua mensagem, um de nossos consultores entrará em contato com você o mais rápido possível.</p>
@@ -196,6 +196,7 @@ export default function App() {
     const valueNumber = Number(value)
     const descontos = [10,13,15,17,18,20,22,24]
     const descontoPadrao = 24
+    
     if(descontos.includes(valueNumber)) {
       return valueNumber
     }
@@ -207,10 +208,10 @@ export default function App() {
     const promo = urlParams.get('promo');
     const promodesconto = getDesconto(promo)
     setDesconto(promodesconto)
-    
   }, [])
 
   const descontoText = loading ? 'Simulando...' : 'Ver meu desconto agora'
+
 
 
   return (
@@ -222,7 +223,7 @@ export default function App() {
       
     <form onSubmit={handleSubmit} className="form">
       {
-        valorDesconto ? <Response goToWhatsApp={goToWhatsApp} desconto={`${desconto}%`} valorDesconto={valorDesconto} /> : <Form descontoText={descontoText} loading={loading} handleChange={handleChange} formData={formData} />
+        valorDesconto ? <Response goToWhatsApp={goToWhatsApp} desconto={desconto} valorDesconto={valorDesconto} /> : <Form descontoText={descontoText} loading={loading} handleChange={handleChange} formData={formData} />
       }
 
     </form>
