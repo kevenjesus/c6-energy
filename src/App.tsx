@@ -94,6 +94,7 @@ export default function App() {
     valor: "",
   });
   const [valorDesconto, setValorDesconto] = useState<string | number>(0)
+  const [isOfebas, setOfebas] = useState(false)
 
   function converterParaFloat(valorFormatado: string): number {
     const valorSemSimbolo = valorFormatado.replace("R$", "").trim();
@@ -158,7 +159,8 @@ export default function App() {
         state: formData.estado,
         city: formData.cidade,
         value: formData.valor,
-        discount: `${desconto}%`
+        discount: `${desconto}%`,
+        isOfebas: isOfebas ? "Ofebas" : ""
       })
     }).finally(() => {
       const valorForNumber = converterParaFloat(formData.valor); 
@@ -194,8 +196,13 @@ export default function App() {
 
   const getDesconto = (value: string | null) => {
     const valueNumber = Number(value)
-    const descontos = [10,13,15,17,18,20,22,24]
+    const descontos = [10,13,15,17,18,20,22,24,12.84]
     const descontoPadrao = 24
+    const isDescontoOfebas = valueNumber === 12.84
+
+    if(isDescontoOfebas) {
+      setOfebas(true)
+    }
     
     if(descontos.includes(valueNumber)) {
       return valueNumber
