@@ -148,7 +148,7 @@ export default function App() {
   }
 
   async function send() {
-    await fetch("https://script.google.com/macros/s/AKfycbwwrf6bEzd2iGImjLIAprym19wjpLFgKqOXEChMWHbc--vlvnacCOz7e0TNET-FiZBc9w/exec", {
+    await fetch("https://script.google.com/macros/s/AKfycbw1-zsouBUbrHW7h_ihqNiXH4gFb-Da-mE-C6elAikXT3hEs4NeSgvF7YPFiYqI_pxGpA/exec", {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/json" },
