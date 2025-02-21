@@ -1,0 +1,284 @@
+:root {
+  --font-ibm-plex-sans: 'IBM Plex Sans', sans-serif;
+  --font-manrope: 'Manrope', sans-serif;
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes selecionar {
+  0% {
+      background-position: 0;
+  }
+  20% {
+      background-position: -100%;
+  }
+  100% {
+      background-position: -100%;
+  }
+}
+
+#root {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 150px;
+  margin-top: 80px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #6D05F2;
+  font-family: var(--font-ibm-plex-sans);
+}
+
+input {
+  background-color: #5600C3;
+  border-width: 0px 0px 0px 0px;
+  border-radius: 15px 15px 15px 15px;
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
+  padding: 16px 23px 16px 23px;
+}
+input::placeholder {
+  color: #d0cece;
+}
+
+img {
+  max-width: 100%;
+}
+
+.container {
+  display: flex;
+  max-width: 1360px;
+  margin: 0 auto;
+  min-height: 640px;
+  gap: 40px;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.image {
+  height: 100%;
+  transition: background .3s, border .3s, border-radius .3s, box-shadow .3s, transform var(--e-transform-transition-duration, .4s);
+  width: 460px;
+}
+
+.image img {
+  height: auto;
+  width: 100%;
+  border-radius: 50px;
+}
+
+.selecionado {
+  background: linear-gradient(to right, transparent 50%, #FF5E00 50%);
+  background-size: 200%;
+  background-position: 0;
+  transition: background-position 1.5s;
+  animation: selecionar 10s infinite;
+}
+
+.titulo {
+  font-size: 55px;
+  font-weight: bold;
+  line-height: 125%;
+  color: #F4F4F4;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  gap: 12px;
+}
+
+.form-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.col-6 {
+  flex-basis: calc(50% - 20px);
+}
+.col-12 {
+  flex-basis: calc(100% - 20px);
+}
+.label {
+  font-size: 25px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn {
+  border: 0;
+  font-size: 18px;
+  text-transform: uppercase;
+  padding: 15px 33px 15px 33px;
+  border-radius: 6px;
+  background-color: #FF5E00;
+  color: #fff;
+  min-height: 40px;
+  cursor: pointer;
+  letter-spacing: -0.5px;
+  font-weight: 600;
+  font-family: var(--font-manrope);
+  transition: all ease-in-out .3s;
+  display: flex;
+  gap: 12px;
+}
+
+.btn:hover,
+.btn:disabled {
+  background-color: #39008E;
+}
+.btn:disabled {
+  cursor: auto;
+}
+
+small {
+  color: #ffffff;
+  font-family: var(--font-manrope);
+  font-size: 14px;
+  line-height: 130%;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  text-align: left;
+}
+a {
+  color: #fff;
+}
+
+footer {
+  width: 100%;
+  background-color: #ff5e00;
+  padding-top: 50px;
+}
+
+.footer-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.company {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-right: 80px;
+}
+
+.social a {
+  display: inline-block;
+  transition-duration: .3s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  
+}
+
+.social a:hover {
+  
+  transform: translateY(-8px);
+}
+
+.logo {
+  width: 260px;
+}
+
+.whatsapp {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  background-color: #25d366;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.company-description {
+  font-size: 18px;
+  color: #fff;
+  font-family: var(--font-manrope);
+  line-height: 125%;
+}
+.social {
+  display: flex;
+  gap: 12px;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.contact-item {
+  color: #fff;
+}
+
+.footer-copy {
+  background-color: #5600c3;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  display: block;
+  margin-top: 50px;
+}
+
+.container-response {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+@media (max-width: 1359px) {
+  .container {
+      flex-direction: column;
+      padding: 0 15px;
+  }
+  .image {
+      display: none;
+  }
+  .form {
+      width: 100%;
+  }
+
+  .col-6,
+  .col-12 {
+      flex-basis: 100%;
+  }
+  .footer-container {
+      flex-direction: column;
+      gap: 50px;
+      padding: 0 15px;
+  }
+  .company {
+      width: 100%;
+  }
+}
