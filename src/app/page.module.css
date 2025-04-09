@@ -103,7 +103,7 @@ img {
   gap: 12px;
 }
 
-.form-fields {
+.formFields {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -114,10 +114,10 @@ img {
   flex-direction: column;
   gap: 14px;
 }
-.col-6 {
+.col6 {
   flex-basis: calc(50% - 20px);
 }
-.col-12 {
+.col12 {
   flex-basis: calc(100% - 20px);
 }
 .label {
@@ -161,7 +161,8 @@ small {
   font-weight: 500;
   text-align: left;
 }
-a {
+
+.link {
   color: #fff;
 }
 
@@ -171,7 +172,7 @@ footer {
   padding-top: 50px;
 }
 
-.footer-container {
+.footerContainer {
   max-width: 1140px;
   margin: 0 auto;
   display: flex;
@@ -214,7 +215,7 @@ footer {
   cursor: pointer;
 }
 
-.company-description {
+.companyDescription {
   font-size: 18px;
   color: #fff;
   font-family: var(--font-manrope);
@@ -231,16 +232,16 @@ footer {
   gap: 24px;
 }
 
-.contact-item {
+.contactItem {
   display: flex;
   gap: 12px;
   align-items: center;
 }
-.contact-item {
+.contactItem {
   color: #fff;
 }
 
-.footer-copy {
+.footerCopy {
   background-color: #5600c3;
   padding: 20px;
   text-align: center;
@@ -250,11 +251,26 @@ footer {
   margin-top: 50px;
 }
 
-.container-response {
+.containerResponse {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 30px;
+}
+
+.containerLogin {
+  max-width: 350px;
+  margin: 100px auto;
+
+}
+.containerLogin form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.containerLogin form button {
+  text-align: center;
+  justify-content: center;
 }
 
 @media (max-width: 1359px) {
@@ -269,11 +285,11 @@ footer {
       width: 100%;
   }
 
-  .col-6,
-  .col-12 {
+  .col6,
+  .col12 {
       flex-basis: 100%;
   }
-  .footer-container {
+  .footerContainer {
       flex-direction: column;
       gap: 50px;
       padding: 0 15px;

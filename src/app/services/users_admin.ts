@@ -40,7 +40,7 @@ const UsersAdmin = {
     
         let { data, error } = await supabase
         .from('users_admin')
-        .select('*')
+        .select("id, name, role_admin(name)")
         .eq('username', username)
         .eq('password', password)
         if(error) {

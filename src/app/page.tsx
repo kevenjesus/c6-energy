@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import './page.css'
+import styles from './page.module.css'
 
 interface FormData {
   nome: string;
@@ -27,14 +27,14 @@ interface ResponseProps {
 
 const Response = ({desconto, valorDesconto, goToWhatsApp}: ResponseProps) => {
   return (
-    <div className="container-response">
-      <h1 className="titulo">
-        Você <span className="selecionado">economizará {desconto}% </span> em um ano, totalizando <br/> <span className="selecionado">{valorDesconto}</span> de desconto!
+    <div className={styles.containerResponse}>
+      <h1 className={styles.titulo}>
+        Você <span className={styles.selecionado}>economizará {desconto}% </span> em um ano, totalizando <br/> <span className={styles.selecionado}>{valorDesconto}</span> de desconto!
       </h1>
-      <p className="company-description">O valor estimado é baseado na Geração Distribuída. Para o mercado livre de energia (alta tensão), o desconto pode chegar a 35%.</p>
-      <p className="label">Recebemos sua mensagem, um de nossos consultores entrará em contato com você o mais rápido possível.</p>
+      <p className={styles.companyDescription}>O valor estimado é baseado na Geração Distribuída. Para o mercado livre de energia (alta tensão), o desconto pode chegar a 35%.</p>
+      <p className={styles.label}>Recebemos sua mensagem, um de nossos consultores entrará em contato com você o mais rápido possível.</p>
 
-      <button className="btn" onClick={goToWhatsApp}>
+      <button className={styles.btn} onClick={goToWhatsApp}>
         <img src="/whatsapp.svg" alt="" />
          entrar em contato agora
       </button>
@@ -45,35 +45,35 @@ const Response = ({desconto, valorDesconto, goToWhatsApp}: ResponseProps) => {
 const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
   return (
     <>
-      <h1 className="titulo"><span className="selecionado">Simule agora</span> e veja quanto você pode economizar</h1>
-      <div className="form-fields">
+      <h1 className={styles.titulo}><span className={styles.selecionado}>Simule agora</span> e veja quanto você pode economizar</h1>
+      <div className={styles.formFields}>
 
-        <div className="col col-6">
+        <div className={`${styles.col} ${styles.col6}`}>
           <input type="text" name="nome" required placeholder="Digite seu nome" value={formData.nome} onChange={handleChange} />
         </div>
 
-        <div className="col col-6">
+        <div className={`${styles.col} ${styles.col6}`}>
           <input type="text" name="whatsapp" required placeholder="Digite seu whatsapp" maxLength={15} value={formData.whatsapp} onChange={handleChange} />
         </div>
 
-        <div className="col col-12">
+        <div className={`${styles.col} ${styles.col12}`}>
           <input type="email" name="email" required placeholder="Digite seu melhor email" value={formData.email} onChange={handleChange} />
         </div>
 
-        <div className="col col-6">
+        <div className={`${styles.col} ${styles.col6}`}>
           <input type="text" name="estado" required placeholder="Seu estado" value={formData.estado} onChange={handleChange} />
         </div>
 
-        <div className="col col-6">
+        <div className={`${styles.col} ${styles.col6}`}>
           <input type="text" name="cidade" required placeholder="Sua cidade" value={formData.cidade} onChange={handleChange} />
         </div>
         
-        <div className="col col-12" style={{marginTop: 20}}>
-          <span className="label">Qual o valor médio da sua conta de luz por mês?</span>
+        <div className={`${styles.col} ${styles.col12}`} style={{marginTop: 20}}>
+          <span className={styles.label}>Qual o valor médio da sua conta de luz por mês?</span>
           <input type="text" name="valor" required placeholder="Digite o valor R$ 0,00" value={formData.valor} onChange={handleChange} />
-          <small>Ao continuar você concorda em receber contato da C6 Energy e com os <a href="https://c6energy.com.br/politica-de-privacidade/" target="_blank">Termos e Condições.</a></small>
+          <small>Ao continuar você concorda em receber contato da C6 Energy e com os <a className={styles.link} href="https://c6energy.com.br/politica-de-privacidade/" target="_blank">Termos e Condições.</a></small>
         </div>
-          <button className="btn" type="submit" disabled={loading}>
+          <button className={styles.btn} type="submit" disabled={loading}>
             {descontoText}
             <img src="/icon.svg" alt="" />
           </button>
@@ -230,12 +230,12 @@ export default function Home() {
 
   return (
     <>
-    <div className="container">
-      <div className="image">
+    <div className={styles.container}>
+      <div className={styles.image}>
         <img src="/image.jpeg" alt="" />
       </div>
       
-    <form onSubmit={handleSubmit} className="form">
+    <form onSubmit={handleSubmit} className={styles.form}>
       {
         valorDesconto ? <Response goToWhatsApp={goToWhatsApp} desconto={desconto} valorDesconto={valorDesconto} /> : <Form descontoText={descontoText} loading={loading} handleChange={handleChange} formData={formData} />
       }
@@ -243,61 +243,61 @@ export default function Home() {
     </form>
     </div>
     <footer>
-      <div className="footer-container">
-      <div className="company">
-        <a href="https://c6energy.com.br/" target="_blank">
-          <img className="logo" src="https://c6energy.com.br/wp-content/uploads/2024/08/logo-c6-energy-colorido2-copiar.webp" alt="" />
+      <div className={styles.footerContainer}>
+      <div className={styles.company}>
+        <a className={styles.link} href="https://c6energy.com.br/" target="_blank">
+          <img className={styles.logo} src="https://c6energy.com.br/wp-content/uploads/2024/08/logo-c6-energy-colorido2-copiar.webp" alt="" />
         </a>
-        <p className="company-description">Aqui na C6 Energy proporcionamos economia e previsibilidade na sua conta de energia, sem burocracia ou necessidade de obras e manutenção.</p>
-        <div className="social">
-          <a href="https://www.instagram.com/c6_energy/" target="_blank">
+        <p className={styles.companyDescription}>Aqui na C6 Energy proporcionamos economia e previsibilidade na sua conta de energia, sem burocracia ou necessidade de obras e manutenção.</p>
+        <div className={styles.social}>
+          <a className={styles.link} href="https://www.instagram.com/c6_energy/" target="_blank">
             <img src="/instagram.svg" alt="" />
           </a>
-          <a href="https://www.linkedin.com/company/c6-energy-br/about/?viewAsMember=true" target="_blank">
+          <a className={styles.link} href="https://www.linkedin.com/company/c6-energy-br/about/?viewAsMember=true" target="_blank">
             <img src="/linkedin.svg" alt="" />
           </a>
-          <a href="https://www.facebook.com/c6energyfb" target="_blank">
+          <a className={styles.link} href="https://www.facebook.com/c6energyfb" target="_blank">
             <img src="/facebook.svg" alt="" />
           </a>
-          <a href="https://www.google.com/search?q=C6+Energy&stick=H4sIAAAAAAAA_-NgU1I1qLA0SU41tbS0SE4xNLFMtkyxMqhItLC0SLKwsEw1MDUxMDc0WsTK6Wym4JqXWpReCQCPTM0hNQAAAA&hl=pt-BR&mat=CcR1DiCIe8IeElYBEKoLaUv3m2bPQh-hQyCrTjSLg5cmCxvKUqIEOUKjuAo-1t_7L-rpB4wEv4hfw39zpTMt-RO8WB9cukz_9jfaVfQ-pNUUxodzKLbIuzN94mDpeXcIfw&authuser=0" target="_blank">
+          <a className={styles.link} href="https://www.google.com/search?q=C6+Energy&stick=H4sIAAAAAAAA_-NgU1I1qLA0SU41tbS0SE4xNLFMtkyxMqhItLC0SLKwsEw1MDUxMDc0WsTK6Wym4JqXWpReCQCPTM0hNQAAAA&hl=pt-BR&mat=CcR1DiCIe8IeElYBEKoLaUv3m2bPQh-hQyCrTjSLg5cmCxvKUqIEOUKjuAo-1t_7L-rpB4wEv4hfw39zpTMt-RO8WB9cukz_9jfaVfQ-pNUUxodzKLbIuzN94mDpeXcIfw&authuser=0" target="_blank">
             <img src="/google.svg" alt="" />
           </a>
         </div>
       </div>
-      <div className="contact">
-        <h2 className="label">Fale consoco</h2>
+      <div className={styles.contact}>
+        <h2 className={styles.label}>Fale consoco</h2>
 
-        <a href="#" onClick={goToWhatsApp} className="contact-item">
+        <a href="#" onClick={goToWhatsApp} className={`${styles.link} ${styles.contactItem}`}>
           <img src="/whatsapp.svg" alt="" />
             (11) 9 3908-0968
         </a>
 
-        <a href="mailto:contato@c6energy.com.br" className="contact-item">
+        <a href="mailto:contato@c6energy.com.br" className={`${styles.link} ${styles.contactItem}`}>
           <img src="/email.svg" alt="" />
           contato@c6energy.com.br
         </a>
 
-        <div  className="contact-item">
+        <div  className={styles.contactItem}>
           <img src="/horario.svg" alt="" />
           Atendimento a partir das 09h até as 22h
         </div>
 
-        <a href="https://www.google.com/search?q=C6+Energy&stick=H4sIAAAAAAAA_-NgU1I1qLA0SU41tbS0SE4xNLFMtkyxMqhItLC0SLKwsEw1MDUxMDc0WsTK6Wym4JqXWpReCQCPTM0hNQAAAA&hl=pt-BR&mat=CcR1DiCIe8IeElYBEKoLaUv3m2bPQh-hQyCrTjSLg5cmCxvKUqIEOUKjuAo-1t_7L-rpB4wEv4hfw39zpTMt-RO8WB9cukz_9jfaVfQ-pNUUxodzKLbIuzN94mDpeXcIfw&authuser=0" target="_blank" className="contact-item">
+        <a href="https://www.google.com/search?q=C6+Energy&stick=H4sIAAAAAAAA_-NgU1I1qLA0SU41tbS0SE4xNLFMtkyxMqhItLC0SLKwsEw1MDUxMDc0WsTK6Wym4JqXWpReCQCPTM0hNQAAAA&hl=pt-BR&mat=CcR1DiCIe8IeElYBEKoLaUv3m2bPQh-hQyCrTjSLg5cmCxvKUqIEOUKjuAo-1t_7L-rpB4wEv4hfw39zpTMt-RO8WB9cukz_9jfaVfQ-pNUUxodzKLbIuzN94mDpeXcIfw&authuser=0" target="_blank" className={`${styles.link} ${styles.contactItem}`}>
           <img src="/email.svg" alt="" />
           R. Maj. Quedinho, 111 - CJ. 110 - Centro Histórico de São Paulo | SP
         </a>
       </div>
       </div>
-      <span className="footer-copy">
+      <span className={styles.footerCopy}>
       Todos os Direitos Reservados | Copyright © 2025| C6 ENERGY LTDA - CNPJ 45.506.222/0001-19
-      <a href="https://wa.me/?text=Confira%20este%20PDF:%20https://localhost:5173/conta-pdf.pdf" target="_blank">
+      <a className={styles.link} href="https://wa.me/?text=Confira%20este%20PDF:%20https://localhost:5173/conta-pdf.pdf" target="_blank">
     Compartilhar no WhatsApp
 </a>
 
     </span>
     </footer>
    
-    <button onClick={goToWhatsApp} className="whatsapp">
+    <button onClick={goToWhatsApp} className={styles.whatsapp}>
       <img src="/whatsapp.svg" alt="" />
     </button>
     </>

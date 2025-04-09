@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, Manrope } from "next/font/google";
-import StyledComponentsRegistry from "./lib/registry";
+import { AdminContextProvider } from "../context/adminContext";
+import { ToastContainer } from "react-toastify";
+
 
 const getIbm = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -15,10 +17,10 @@ const getManrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Simulador | C6 Energy",
+  title: "Admin | C6 Energy",
   description: "Simule agora e veja quanto você pode economizar Seu desconto em um ano será de: Valor economia O valor estimado é baseado na Geração Distribuída. Para o mercado livre de energia (alta tensão), o desconto pode chegar a 35%. Recebemos sua mensagem, um de nossos consultores entrará em contato com você o mais rápido possível. ENTRAR [&hellip;]",
   openGraph: {
-    title: 'Simulador | C6 Energy',
+    title: 'Admin | C6 Energy',
     description: "Simule agora e veja quanto você pode economizar Seu desconto em um ano será de: Valor economia O valor estimado é baseado na Geração Distribuída. Para o mercado livre de energia (alta tensão), o desconto pode chegar a 35%. Recebemos sua mensagem, um de nossos consultores entrará em contato com você o mais rápido possível. ENTRAR [&hellip;]",
     type: 'website',
     url: 'https://simulador.c6energy.com.br',
@@ -40,10 +42,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${getIbm.variable} ${getManrope.variable}`}>
-        <StyledComponentsRegistry>
-          {children}
-        </StyledComponentsRegistry>
+      <body className={`${getIbm.variable} ${getManrope.variable}`} style={{background: '#6800F5'}}>
+        <AdminContextProvider>
+            {children}
+            <ToastContainer theme="colored" />
+        </AdminContextProvider>
       </body>
     </html>
   );
