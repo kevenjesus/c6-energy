@@ -89,9 +89,6 @@ export default function useAuth() {
         }
 
         document.body.style.background = ' #6800F5'
-        return () => {
-            document.body.style.background = '';
-        }
         
         
     }, [])
