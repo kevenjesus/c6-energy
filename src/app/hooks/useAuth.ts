@@ -77,15 +77,15 @@ export default function useAuth() {
         if(auth) {
             setTimeout(() => {
                 try {
-                    
                     handleUser(JSON.parse(auth))
-                    
                 } catch (err) {
-    
+                    
                 } finally {
                     setLoadingCheckUser(false)
                 }
             }, 1000)
+        }else {
+            setLoadingCheckUser(false)
         }
 
         document.body.style.background = ' #6800F5'
