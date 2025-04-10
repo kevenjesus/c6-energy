@@ -732,7 +732,7 @@ export default function Home() {
     // const promo = urlParams.get('promo');
     // const promodesconto = getDesconto(promo)
     // setDesconto(promodesconto)
-    document.body.style = 'background: #6800F5'
+    document.body.style.background = '#6800F5'
     return () => {
         document.body.style.background = '';
     }
