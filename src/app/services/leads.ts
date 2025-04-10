@@ -1,15 +1,117 @@
 
 import supabase from "../config/supabase"
-import { ResponseSupbase, UserAuthTypes } from "./types"
+import { ProposalData } from "../hooks/useAdmin";
+import { Form2Data, Form2DataUser, FormData } from "../page";
+import { ResponseSupbase } from "./types"
 
 
 const leadsService = {
+    upload: async (file: File | Blob, path: string): Promise<ResponseSupbase> => {
+        const { data, error } = await supabase
+            .storage
+            .from('documents')
+            .upload(path, file, {
+            cacheControl: '3600',
+            upsert: true,
+            });
+
+        if (error) {
+            return {
+            error: true,
+            message: `Erro no upload: ${error.message}`
+            };
+        }
+
+        return {
+            data: data.path,
+            message: 'Upload feito com sucesso'
+        };
+    },
+    insertProposal: async (data: {
+        user: string;
+        invoice_energy?: string;
+        document?: string;
+        social_contract?: string;
+    }): Promise<ResponseSupbase> => {
+        const { data: result, error } = await supabase
+        .from('proposal')
+        .insert([data])
+        .select();
+    
+        if (error) {
+        return {
+            error: true,
+            message: `Erro ao criar proposta: ${error.message}`
+        };
+        }
+    
+        return {
+            data: result?.[0],
+            message: 'Proposta criada com sucesso'
+        };
+    },
+    updateLead: async (dataForm: Form2DataUser): Promise<ResponseSupbase> => {
+        console.log('dataForm.is_company', dataForm.is_company)
+        const { data, error } = await supabase
+        .from('leads')
+        .update({ 
+            document: dataForm.document,
+            is_company: dataForm.is_company === 'true',
+            zipcode: dataForm.zipcode, 
+            address: dataForm.address,
+            number: dataForm.number,
+            complement: dataForm.complement,
+            neighborhood: dataForm.neighborhood,
+        })
+        .eq('id', dataForm.id);
+
+        if(error) {
+            return {
+                error: true,
+                message: `Error ao cadastrar um lead: ${error.message}`
+            }
+        }
+
+        return {
+            data: data,
+            message: 'ok'
+        }
+    },
+    postLead: async (dataForm: FormData): Promise<ResponseSupbase> => {
+        const { data, error } = await supabase
+        .from('leads')
+        .insert([
+            {
+                name: dataForm.nome,
+                email: dataForm.email,
+                whatsapp: dataForm.whatsapp,
+                state: dataForm.estado,
+                city: dataForm.cidade,
+                energy_value: dataForm.valor,
+                energy_company: dataForm.distribuidora,
+                discount: dataForm.desconto
+            }
+        ])
+        .select()
+
+        if(error) {
+            return {
+                error: true,
+                message: `Error ao cadastrar um lead: ${error.message}`
+            }
+        }
+
+        return {
+            data: data[0],
+            message: 'ok'
+        }
+    },
     getLeads: async (): Promise<ResponseSupbase> => {
         const { data, error } = await supabase
-        .from('proposal')
+        .from('leads')
         .select(`
           *,
-          user:user (*)
+          proposal:proposal(*)
         `);
 
         if(error) {
@@ -19,15 +121,21 @@ const leadsService = {
             }
         }
 
-        const proposalsWithUrls = data.map((proposal) => ({
-            ...proposal,
-            invoice_energy: proposal.invoice_energy ? getPublicFileUrl(proposal.invoice_energy) : null,
-            social_contract: proposal.social_contract ? getPublicFileUrl(proposal.social_contract) : null,
-            document: proposal.document ? getPublicFileUrl(proposal.document) : null,
-        }));
+        const leadsWithProposalsAndUrls = data.map((lead) => ({
+            ...lead,
+            proposal: Array.isArray(lead.proposal)
+              ? lead.proposal.map((p: ProposalData) => ({
+                  ...p,
+                  invoice_energy: p.invoice_energy ? getPublicFileUrl(p.invoice_energy) : null,
+                  social_contract: p.social_contract ? getPublicFileUrl(p.social_contract) : null,
+                  document: p.document ? getPublicFileUrl(p.document) : null,
+                }))
+              : [],
+          }));
+          
 
         return {
-            data: proposalsWithUrls,
+            data: leadsWithProposalsAndUrls,
             message: 'ok'
         }
         

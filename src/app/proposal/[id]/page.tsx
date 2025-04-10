@@ -2,6 +2,7 @@
   
 import useProposal from "@/app/hooks/useProposal"
 import * as S from './style'
+import Loading from "@/app/components/Loading";
 
 function calcularImpactoAmbiental(valorContaMensal: number) {
     const precoPorKWh = 0.90; // R$/kWh
@@ -53,7 +54,7 @@ export default function ProposalPage() {
     const { loading, proposal } = useProposal()
 
     if(loading) {
-        return <h1>Carregando proposta...</h1>
+        return <Loading headline="Carregando proposta..." />
     }
 
     if(!proposal) {

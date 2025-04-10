@@ -15,9 +15,8 @@ export default function AdminPage() {
     const { user } = useAdminContext()
     const { leads } = useAdmin()
     const { signOut} = useAuth()
-
+    
  
-
     return (
         <PageProtect>
             <Header />
@@ -34,6 +33,7 @@ export default function AdminPage() {
                             <S.Th>WhatsApp</S.Th>
                             <S.Th>Email</S.Th>
                             <S.Th>Localização</S.Th>
+                            <S.Th>Desconto</S.Th>
                             <S.Th>Proposta</S.Th>
                             <S.Th>Documentos</S.Th>
                         </tr>
@@ -42,22 +42,37 @@ export default function AdminPage() {
                         {
                             leads.length === 0 ? (
                             <tr>
-                                <S.Td colSpan={6} align="center">Nenhum lead cadastrado</S.Td>
+                                <S.Td colSpan={7} align="center">Nenhum lead cadastrado</S.Td>
                             </tr>
                             ) : (
                                 leads.map(lead => (
                                 <tr key={lead.id}>
-                                    <S.Td>{lead.user.name}</S.Td>
+                                    <S.Td>{lead.name}</S.Td>
                                     <S.Td>
-                                        <Link href={`https://wa.me/+55${lead.user.whatsapp}`}>{lead.user.whatsapp}</Link>
+                                        <Link href={`https://wa.me/+55${lead.whatsapp}`}>{lead.whatsapp}</Link>
                                     </S.Td>
                                     <S.Td>
-                                        <Link href={`mailto:${lead.user.email}`}>{lead.user.email}</Link>
+                                        <Link href={`mailto:${lead.email}`}>{lead.email}</Link>
                                     </S.Td>
-                                    <S.Td align="center">{`${lead.user.city}/${lead.user.state}`}</S.Td>
-                                    <S.Td align="center"><Link href={`/proposal/${lead.id}`}>ver proposta</Link></S.Td>
+                                    <S.Td align="center">{`${lead.city}/${lead.state}`}</S.Td>
+                                    <S.Td align="center">{lead.discount}</S.Td>
                                     <S.Td align="center">
-                                        <Link href={lead.document}>{lead.user.is_company ? 'Contrato social' : 'RG'}</Link> | <Link href={lead.invoice_energy}>Conta de energia</Link>
+                                        {
+                                            lead.proposal.length === 0 ? '--' : (
+                                                <Link target="_blank" href={`/proposal/${lead.proposal[0].id}`}>Ver proposta</Link>
+                                            )
+                                        }
+                                        
+                                        </S.Td>
+                                    <S.Td align="center">
+                                        {
+                                           lead.proposal.length === 0 ? '--' : (
+                                            <>
+                                                <Link href={lead.is_company ? lead.proposal[0].social_contract : lead.proposal[0].document}>{lead.is_company ? 'Contrato social' : 'RG/CNH'}</Link> | <Link href={lead.proposal[0].invoice_energy}>Conta de energia</Link>
+                                            </>
+                                           ) 
+                                        }
+                                        
                                     </S.Td>
                                 </tr>
                                 ))

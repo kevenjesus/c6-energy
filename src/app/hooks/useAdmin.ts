@@ -18,6 +18,7 @@ export interface leadData {
     discount: string
     document: string
     is_company: boolean
+    proposal: ProposalData[]
 }
 
 export interface ProposalData {
@@ -31,7 +32,7 @@ export interface ProposalData {
 
 export default function useAdmin() {
     const [loading, setLoading] = useState(false)
-    const [leads, setLeads] = useState<ProposalData[]>([])
+    const [leads, setLeads] = useState<leadData[]>([])
 
     const getLeads = async () => {
         setLoading(true)

@@ -10,25 +10,27 @@ export default function useProposal() {
    
 
     const getProposal = async (id: string) => {
-        try {
-            const request = await fetch(`/api/get-proposal/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            const response = await request.json()
-            setProposal(response.data)
-        } catch (err) {
-            toast('Error ao tentar carregar Proposta', {type: 'error'})
+        setTimeout(async () => {
+            try {
+                const request = await fetch(`/api/get-proposal/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const response = await request.json()
+                setProposal(response.data)
+            } catch (err) {
+                toast('Error ao tentar carregar Proposta', {type: 'error'})
 
-        } finally {
-            setLoading(false)
-        }
+            } finally {
+                setLoading(false)
+            }
+        }, 500)
     }
 
     useEffect(() => {
-        if(params.id) {
+        if(params?.id) {
             const id = params.id as string
             getProposal(id)
         }

@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${getIbm.variable} ${getManrope.variable}`} style={{background: '#6800F5'}}>
+      <body className={`${getIbm.variable} ${getManrope.variable}`}>
         <AdminContextProvider>
             {children}
             <ToastContainer theme="colored" />

@@ -74,17 +74,25 @@ export default function useAuth() {
 
     useEffect(() => {
         const auth = localStorage.getItem('authted')
-        setTimeout(() => {
-            try {
-                if(auth) {
+        if(auth) {
+            setTimeout(() => {
+                try {
+                    
                     handleUser(JSON.parse(auth))
+                    
+                } catch (err) {
+    
+                } finally {
+                    setLoadingCheckUser(false)
                 }
-            } catch (err) {
+            }, 1000)
+        }
 
-            } finally {
-                setLoadingCheckUser(false)
-            }
-        }, 1000)
+        document.body.style = 'background: #6800F5'
+        return () => {
+            document.body.style.background = '';
+        }
+        
         
     }, [])
 
