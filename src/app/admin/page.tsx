@@ -45,8 +45,9 @@ export default function AdminPage() {
                                 <S.Td colSpan={7} align="center">Nenhum lead cadastrado</S.Td>
                             </tr>
                             ) : (
-                                leads.map(lead => (
-                                <tr key={lead.id}>
+                                leads.map(lead => {
+                                    console.log(lead.proposal)
+                                return <tr key={lead.id}>
                                     <S.Td>{lead.name}</S.Td>
                                     <S.Td>
                                         <Link href={`https://wa.me/+55${lead.whatsapp}`}>{lead.whatsapp}</Link>
@@ -68,14 +69,14 @@ export default function AdminPage() {
                                         {
                                            lead.proposal.length === 0 ? '--' : (
                                             <>
-                                                <Link href={lead.is_company ? lead.proposal[0].social_contract : lead.proposal[0].document}>{lead.is_company ? 'Contrato social' : 'RG/CNH'}</Link> | <Link href={lead.proposal[0].invoice_energy}>Conta de energia</Link>
+                                                <Link href={lead.is_company ? lead.proposal[0].social_contract : lead.proposal[0].document}>{lead.is_company ? 'Contrato social' : 'RG/CNH'}</Link> | {lead.proposal[0].invoice_energy && <Link href={lead.proposal[0].invoice_energy}>Conta de energia</Link>} 
                                             </>
                                            ) 
                                         }
                                         
                                     </S.Td>
                                 </tr>
-                                ))
+})
                             
                             )
                         }
