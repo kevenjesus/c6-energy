@@ -51,7 +51,6 @@ const leadsService = {
         };
     },
     updateLead: async (dataForm: Form2DataUser): Promise<ResponseSupbase> => {
-        console.log('dataForm.is_company', dataForm.is_company)
         const { data, error } = await supabase
         .from('leads')
         .update({ 
@@ -63,7 +62,8 @@ const leadsService = {
             complement: dataForm.complement,
             neighborhood: dataForm.neighborhood,
         })
-        .eq('id', dataForm.id);
+        .eq('id', dataForm.id)
+        .select();
 
         if(error) {
             return {

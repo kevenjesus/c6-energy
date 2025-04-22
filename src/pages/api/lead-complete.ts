@@ -56,29 +56,26 @@ export default async function handler(
   }
 
   // Upload do arquivo document_file (apenas uma vez)
-  const documentUpload = documentFile
-    ? await leadsService.upload(
-        new Blob([await fs.readFile(documentFile.filepath)]),
-        `uploads/${Date.now()}-${documentFile.originalFilename}`
-      )
-    : null;
+  // const documentUpload = documentFile
+  //   ? await leadsService.upload(
+  //       new Blob([await fs.readFile(documentFile.filepath)]),
+  //       `uploads/${Date.now()}-${documentFile.originalFilename}`
+  //     )
+  //   : null;
 
-  // Upload do arquivo invoice_energy (se existir)
-  const invoiceUpload = invoiceEnergy
-    ? await leadsService.upload(
-        new Blob([await fs.readFile(invoiceEnergy.filepath)]),
-        `invoice_energy/${Date.now()}-${invoiceEnergy.originalFilename}`
-      )
-    : null;
+  // // Upload do arquivo invoice_energy (se existir)
+  // const invoiceUpload = invoiceEnergy
+  //   ? await leadsService.upload(
+  //       new Blob([await fs.readFile(invoiceEnergy.filepath)]),
+  //       `invoice_energy/${Date.now()}-${invoiceEnergy.originalFilename}`
+  //     )
+  //   : null;
 
-  // Cria proposta com base no tipo de pessoa
-  console.log('invoice_energy path:', invoiceUpload?.data);
+  // // Cria proposta com base no tipo de pessoa
+  // console.log('invoice_energy path:', invoiceUpload?.data);
 
   const insertProposalRes = await leadsService.insertProposal({
     user: id,
-    invoice_energy: invoiceUpload?.data ?? null,
-    document: isCompany === 'false' ? documentUpload?.data ?? null : null,
-    social_contract: isCompany === 'true' ? documentUpload?.data ?? null : null,
   });
 
   if (insertProposalRes.error) {

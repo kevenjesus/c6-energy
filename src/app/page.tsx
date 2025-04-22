@@ -588,14 +588,14 @@ const Form2 = ({formData, handleChange, loading}: Form2Props) => {
           <S.Input type="text" name="neighborhood" readOnly placeholder="Bairro" value={formData.neighborhood} />
         </S.Col12>
         
-        <S.Col6>
+        {/* <S.Col6>
           <S.Label style={{fontSize: 16}}>Anexar conta de energia</S.Label>
           <S.Input type="file" name="invoice_energy" required style={{width: '100%'}} onChange={handleChange} />
         </S.Col6>
         <S.Col6>
           <S.Label style={{fontSize: 16}}>Anexar {formData.is_company === 'is_personal' ? 'RG ou CNH' : 'Contrato Social'}</S.Label>
           <S.Input type="file" name="document_file" required style={{width: '100%'}} onChange={handleChange} />
-        </S.Col6>
+        </S.Col6> */}
 
         <S.Col12>
           <S.Button type="submit" style={{width: '230px'}}>
