@@ -10,6 +10,49 @@ import useAdmin from "../hooks/useAdmin"
 import { useEffect } from "react"
 import useAuth from "../hooks/useAuth"
 
+interface FilesLinksProps {
+    isCompany: boolean;
+    social_contract?: string;
+    document?: string
+}
+
+
+function FilesLinks({isCompany, social_contract, document}:FilesLinksProps) {
+    if(isCompany && social_contract) {
+        return (
+            <Link href={social_contract}>Contrato Social</Link>
+        )
+    }else if(!isCompany && document) {
+        <Link href={document}>RG/CNH</Link>
+    }
+    return ''
+}
+
+function FileEnergyInvoice({energiy_invoice}:{energiy_invoice?: string}) {
+    if(energiy_invoice) {
+        return (
+            <Link href={energiy_invoice}>Conta de energia</Link>
+        )
+    }
+    return ''
+}
+
+function capitalizeWords(text: string): string {
+    return text
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+function telwords(tel: string): string {
+    return tel
+            .replace("(", "")
+            .replace(")", "")
+            .replace("-", "")
+            .replace(" ", "")
+}
+
 
 export default function AdminPage() {
     const { user } = useAdminContext()
@@ -35,6 +78,7 @@ export default function AdminPage() {
                             <S.Th>Localização</S.Th>
                             <S.Th>Desconto</S.Th>
                             <S.Th>Proposta</S.Th>
+                            <S.Th>Ref</S.Th>
                             <S.Th>Documentos</S.Th>
                         </tr>
                     </thead>
@@ -46,30 +90,41 @@ export default function AdminPage() {
                             </tr>
                             ) : (
                                 leads.map(lead => {
-                                    console.log(lead.proposal)
+                                    
+                                const isProposal = lead.proposal.length > 0
+                                const proposal = lead.proposal[0]
+                                const isCompany = lead.is_company
+                                
+
                                 return <tr key={lead.id}>
-                                    <S.Td>{lead.name}</S.Td>
+                                    <S.Td>{capitalizeWords(lead.name)}</S.Td>
                                     <S.Td>
-                                        <Link href={`https://wa.me/+55${lead.whatsapp}`}>{lead.whatsapp}</Link>
+                                        <Link target="_blank" href={`https://wa.me/+55${telwords(lead.whatsapp)}`}>{lead.whatsapp}</Link>
                                     </S.Td>
                                     <S.Td>
-                                        <Link href={`mailto:${lead.email}`}>{lead.email}</Link>
+                                        <Link target="_blank" href={`mailto:${lead.email.toLowerCase()}`}>{lead.email.toLowerCase()}</Link>
                                     </S.Td>
                                     <S.Td align="center">{`${lead.city}/${lead.state}`}</S.Td>
                                     <S.Td align="center">{lead.discount}</S.Td>
                                     <S.Td align="center">
                                         {
-                                            lead.proposal.length === 0 ? '--' : (
-                                                <Link target="_blank" href={`/proposal/${lead.proposal[0].id}`}>Ver proposta</Link>
+                                            !isProposal ? '--' : (
+                                                <Link target="_blank" href={`/proposal/${proposal.id}`}>Ver proposta</Link>
                                             )
                                         }
                                         
                                         </S.Td>
+                                    <S.Td>nada</S.Td>
                                     <S.Td align="center">
                                         {
-                                           lead.proposal.length === 0 ? '--' : (
+                                           !isProposal ? '--' : (
                                             <>
-                                                <Link href={lead.is_company ? lead.proposal[0].social_contract : lead.proposal[0].document}>{lead.is_company ? 'Contrato social' : 'RG/CNH'}</Link> | {lead.proposal[0].invoice_energy && <Link href={lead.proposal[0].invoice_energy}>Conta de energia</Link>} 
+                                                <FilesLinks 
+                                                    isCompany={isCompany} 
+                                                    social_contract={proposal.social_contract}
+                                                    document={proposal.document}
+                                                />{' '}
+                                                <FileEnergyInvoice energiy_invoice={proposal.invoice_energy} />
                                             </>
                                            ) 
                                         }

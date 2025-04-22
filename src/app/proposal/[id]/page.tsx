@@ -83,12 +83,12 @@ export default function ProposalPage() {
         <>
             <S.Header>
                 <S.Branding>
-                    <img src="https://c6energy.com.br/wp-content/uploads/2024/08/logo-c6-energy-colorido2-copiar.webp" alt="" />
+                    <img src="/logotipo.png" alt="C6 ENERGY" />
                     <S.BrandingText>A Maior inteligencia de energia do Brasil </S.BrandingText>
                 </S.Branding>
                 <S.HeadingContact>
                     <p>C6 ENERGY | 45.506.222/0001-19</p>
-                    <p>ENDEREÇO: Rua Brás Cuba, 107 SALA A 22</p>
+                    <p>ENDEREÇO: R. Dr. Bráulio Gomes, 107 - 01047-020</p>
                     <p>São Paulo, SP</p>
                 </S.HeadingContact>
             </S.Header>

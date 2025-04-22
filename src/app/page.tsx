@@ -6,217 +6,345 @@ import { useRouter } from "next/navigation";
 const estados = [
   { sigla: 'AC', 
     distribuidoras: [
-      { nome: "Energisa AC", desconto: "5%" }
+      { nome: "Energisa AC", desconto: "5%", cdt: 'AX152' }
     ]
    },
   { sigla: 'AL', 
     distribuidoras: [
-      { nome: "Equatorial AL", desconto: "10%" }
+      { nome: "Equatorial AL", desconto: "10%", cdt: 'MX60' }
     ]
    },
   { sigla: 'AM', 
     distribuidoras: [
-      { nome: "Amazonas Energia", desconto: "5%" }
+      { nome: "Amazonas Energia", desconto: "15%", cdt: 'GD159' }
     ]
    },
   { sigla: 'AP', 
     distribuidoras: [
-      { nome: "CEA Equatorial", desconto: "5%" }
+      { nome: "CEA Equatorial", desconto: "5%", cdt: 'AX152' }
     ]
    },
   { sigla: 'BA', 
     distribuidoras: [
-      { nome: "Neoenergia Coelba", desconto: "10%" }
+      { nome: "Neoenergia Coelba", desconto: "15%", cdt: 'OR153' }
     ]
    },
   { sigla: 'CE', 
     distribuidoras: [
-      { nome: "Enel CE", desconto: "10%" }
+      { nome: "Enel CE", desconto: "15%", cdt: 'OR153' }
     ]
    },
   { sigla: 'DF', 
     distribuidoras: [
-      { nome: "Neoenergia Brasília", desconto: "10%" }
+      { nome: "Neoenergia Brasília", desconto: "15%", cdt: 'GD159' }
     ]
    },
   { sigla: 'ES', 
     distribuidoras: [
-      { nome: "EDP ES", desconto: "10%" },
-      { nome: "ELFSM", desconto: "5%" }
+      { nome: "EDP ES", desconto: "15%", cdt: 'GD159' },
+      { nome: "ELFSM", desconto: "5%", cdt: 'AX152' }
     ]
    },
   { sigla: 'GO', 
     distribuidoras: [
-      { nome: "Enel GO (Equatorial)", desconto: "10%" },
-      { nome: "Chesp", desconto: "5%" }
+      { nome: "Enel GO (Equatorial)", desconto: "15%", cdt: 'OR153' },
+      { nome: "Chesp", desconto: "5%", cdt: 'AX152' }
     ]
    },
   { sigla: 'MA', 
     distribuidoras: [
-      { nome: "Energisa MS", desconto: "10%" }
+      { nome: "Equatorial MA", desconto: "10%", cdt: 'OR153' },
     ]
    },
   { sigla: 'MG', 
     distribuidoras: [
-      { nome: "Cemig-D", desconto: "20%" },
-      { nome: "DMED", desconto: "5%" },
-      { nome: "Energisa MG", desconto: "5%" }
+      { nome: "Cemig-D", desconto: "18%", cdt: 'OR153' },
+      { nome: "DMED", desconto: "5%", cdt: 'AX152' },
+      { nome: "Energisa MG", desconto: "5%", cdt: 'AX152' }
     ]
    },
   { sigla: 'MS', 
     distribuidoras: [
-      { nome: "Energisa MS", desconto: "10%" }
+      { nome: "Energisa MS", desconto: "15%", cdt: 'OR153' }
     ]
    },
   { sigla: 'MT', 
     distribuidoras: [
-      { nome: "Energisa MT", desconto: "10%" }
+      { nome: "Energisa MT", desconto: "15%", cdt: 'OR153' }
     ]
    },
   { sigla: 'PA', 
     distribuidoras: [
-      { nome: "Equatorial PA", desconto: "10%" }
+      { nome: "Equatorial PA", desconto: "15%", cdt: 'OR153' }
     ]
    },
   { sigla: 'PB', 
     distribuidoras: [
-      { nome: "Energisa Borborema", desconto: "5%" },
-      { nome: "Energisa PB", desconto: "5%" }
+      { nome: "Energisa Borborema", desconto: "5%", cdt: 'AX152' },
+      { nome: "Energisa PB", desconto: "15%", cdt: 'GD159' }
     ]
    },
   { sigla: 'PE', 
     distribuidoras: [
-      { nome: "Neoenergia Pernambuco", desconto: "10%" }
+      { nome: "Neoenergia Pernambuco", desconto: "15%", cdt: 'OR153' }
     ]
    },
   { sigla: 'PI', 
     distribuidoras: [
-      { nome: "Equatorial PI", desconto: "10%" }
+      { nome: "Equatorial PI", desconto: "15%", cdt: 'GD159' }
     ]
    },
   { sigla: 'PR', 
     distribuidoras: [
-      { nome: "Castro - DIS", desconto: "10%" },
-      { nome: "Ceral DIS", desconto: "10%" },
-      { nome: "Cocel", desconto: "10%" },
-      { nome: "Copel-DIS", desconto: "10%" },
-      { nome: "Forcel", desconto: "10%" }
+      { nome: "Castro - DIS", desconto: "10%", cdt: 'AX152' },
+      { nome: "Ceral DIS", desconto: "10%", cdt: 'AX152'  },
+      { nome: "Cocel", desconto: "10%", cdt: 'AX152'  },
+      { nome: "Copel-DIS", desconto: "15%", cdt: 'GD159' },
+      { nome: "Forcel", desconto: "10%", cdt: 'AX152' }
     ]
    },
   { sigla: 'RJ',
     distribuidoras: [
-      { nome: "CERCI", desconto: "12%" },
-      { nome: "Ceral Araruama", desconto: "12%" },
-      { nome: "Ceres", desconto: "12%" },
-      { nome: "Enel RJ", desconto: "12%" },
-      { nome: "Energisa Nova Friburgo", desconto: "5%" },
-      { nome: "Light", desconto: "5%" }
+      { nome: "CERCI", desconto: "12%", cdt: 'AX152' },
+      { nome: "Ceral Araruama", desconto: "12%", cdt: 'AX152' },
+      { nome: "Ceres", desconto: "12%", cdt: 'AX152' },
+      { nome: "Enel RJ", desconto: "15%", cdt: 'GD159' },
+      { nome: "Energisa Nova Friburgo", desconto: "5%", cdt: 'AX152' },
+      { nome: "Light", desconto: "5%", cdt: 'AX152' }
     ]
    },
   { sigla: 'RN', 
     distribuidoras: [
-      { nome: "Neoenergia Cosern", desconto: "10%" }
+      { nome: "Neoenergia Cosern", desconto: "15%", cdt: 'OR153' }
     ]
    },
   { sigla: 'RO', 
     distribuidoras: [
-      { nome: "Energisa RO", desconto: "5%" }
+      { nome: "Energisa RO", desconto: "15%", cdt: 'GD159' }
     ]
    },
   { sigla: 'RR', 
     distribuidoras: [
-      { nome: "Roraima Energia", desconto: "5%" }
+      { nome: "Roraima Energia", desconto: "5%", cdt: 'AX152' }
     ]
    },
   {
     sigla: 'RS',
     distribuidoras: [
-      { nome: 'CEEE Equatorial', desconto: '10%' },
-      { nome: 'CELETRO', desconto: '10%' },
-      { nome: 'CERFOX', desconto: '10%' },
-      { nome: 'CERTHIL', desconto: '10%' },
-      { nome: 'COOPERNORTE', desconto: '10%' },
-      { nome: 'COOPERSUL', desconto: '10%' },
-      { nome: 'COPREL', desconto: '10%' },
-      { nome: 'Ceriluz', desconto: '10%' },
-      { nome: 'Cermissões', desconto: '10%' },
-      { nome: 'Certaja', desconto: '10%' },
-      { nome: 'Certel', desconto: '10%' },
-      { nome: 'Cooperluz', desconto: '10%' },
-      { nome: 'Creluz-D', desconto: '10%' },
-      { nome: 'Creral', desconto: '10%' },
-      { nome: 'Demei', desconto: '10%' },
-      { nome: 'Eletrocar', desconto: '10%' },
-      { nome: 'Hidropan', desconto: '10%' },
-      { nome: 'MuxEnergia', desconto: '10%' },
-      { nome: 'Nova Palma', desconto: '10%' },
-      { nome: 'RGE', desconto: '10%' }
+      { nome: 'CEEE Equatorial', desconto: '15%', cdt: 'GD159' },
+      { nome: 'CELETRO', desconto: '10%', cdt: 'AX152' },
+      { nome: 'CERFOX', desconto: '10%', cdt: 'AX152' },
+      { nome: 'CERTHIL', desconto: '10%', cdt: 'AX152' },
+      { nome: 'COOPERNORTE', desconto: '10%', cdt: 'AX152' },
+      { nome: 'COOPERSUL', desconto: '10%', cdt: 'AX152' },
+      { nome: 'COPREL', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Ceriluz', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cermissões', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Certaja', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Certel', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cooperluz', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Creluz-D', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Creral', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Demei', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Eletrocar', desconto: '15%', cdt: 'GD159' },
+      { nome: 'Hidropan', desconto: '10%', cdt: 'AX152' },
+      { nome: 'MuxEnergia', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Nova Palma', desconto: '10%', cdt: 'AX152' },
+      { nome: 'RGE', desconto: '15%', cdt: 'GD159' }
     ]
   },
   {
     sigla: 'SC',
     distribuidoras: [
-      { nome: 'CEGERO', desconto: '10%' },
-      { nome: 'COOPERZEM', desconto: '10%' },
-      { nome: 'Cejama', desconto: '10%' },
-      { nome: 'Celesc-DIS', desconto: '10%' },
-      { nome: 'Ceprag', desconto: '10%' },
-      { nome: 'Ceral Anitápolis', desconto: '10%' },
-      { nome: 'Ceraça', desconto: '10%' },
-      { nome: 'Cerbranorte', desconto: '10%' },
-      { nome: 'Cerej', desconto: '10%' },
-      { nome: 'Cergal', desconto: '10%' },
-      { nome: 'Cergapa', desconto: '10%' },
-      { nome: 'Cergral', desconto: '10%' },
-      { nome: 'Cermoful', desconto: '10%' },
-      { nome: 'Cerpalo', desconto: '10%' },
-      { nome: 'Cersad', desconto: '10%' },
-      { nome: 'Cersul', desconto: '10%' },
-      { nome: 'Certrel', desconto: '10%' },
-      { nome: 'Codesam', desconto: '10%' },
-      { nome: 'Coopera', desconto: '10%' },
-      { nome: 'Cooperaliança', desconto: '10%' },
-      { nome: 'Coopercocal', desconto: '10%' },
-      { nome: 'Coopermila', desconto: '10%' },
-      { nome: 'Coorsel', desconto: '10%' },
-      { nome: 'Dcelt', desconto: '10%' },
-      { nome: 'EFLJC', desconto: '10%' },
-      { nome: 'Eflul', desconto: '10%' }
+      { nome: 'CEGERO', desconto: '10%', cdt: 'AX152' },
+      { nome: 'COOPERZEM', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cejama', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Celesc-DIS', desconto: '15%', cdt: 'GD159' },
+      { nome: 'Ceprag', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Ceral Anitápolis', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Ceraça', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cerbranorte', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cerej', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cergal', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cergapa', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cergral', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cermoful', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cerpalo', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cersad', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cersul', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Certrel', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Codesam', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Coopera', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Cooperaliança', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Coopercocal', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Coopermila', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Coorsel', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Dcelt', desconto: '15%', cdt: 'GD159' },
+      { nome: 'EFLJC', desconto: '10%', cdt: 'AX152' },
+      { nome: 'Eflul', desconto: '10%', cdt: 'AX152' }
     ]
   },
   {
     sigla: 'SE',
     distribuidoras: [
-      { nome: 'Cercos', desconto: '5%' },
-      { nome: 'Energisa SE', desconto: '5%' },
-      { nome: 'Sulgipe', desconto: '5%' }
+      { nome: 'Cercos', desconto: '5%', cdt: 'AX152' },
+      { nome: 'Energisa SE', desconto: '15%', cdt: 'GD159' },
+      { nome: 'Sulgipe', desconto: '5%', cdt: 'AX152' }
     ]
   },
   { sigla: 'SP',
     distribuidoras: [
-      { nome: "CERVAM", desconto: "15%" },
-      { nome: "Cedrap", desconto: "15%" },
-      { nome: "Cedri", desconto: "15%" },
-      { nome: "Cemirim", desconto: "15%" },
-      { nome: "Neoenergia Elektro", desconto: "15%" },
-      { nome: "CERMC", desconto: "10%" },
-      { nome: "CERRP", desconto: "10%" },
-      { nome: "CPFL Paulista", desconto: "10%" },
-      { nome: "CPFL Piratininga", desconto: "10%" },
-      { nome: "Cerim", desconto: "10%" },
-      { nome: "Cerpro", desconto: "10%" },
-      { nome: "Cetril", desconto: "10%" },
-      { nome: "EDP SP", desconto: "10%" },
-      { nome: "CPFL Santa Cruz", desconto: "5%" },
-      { nome: "Ceripa", desconto: "5%" },
-      { nome: "Ceris", desconto: "5%" },
-      { nome: "Cernhe", desconto: "5%" },
-      { nome: "ESS", desconto: "5%" },
-      { nome: "Enel SP", desconto: "5%" }
+      { nome: "CERVAM", desconto: "15%", cdt: 'AX152' },
+      { nome: "Cedrap", desconto: "15%", cdt: 'AX152' },
+      { nome: "Cedri", desconto: "15%", cdt: 'AX152' },
+      { nome: "Cemirim", desconto: "15%", cdt: 'AX152' },
+      { nome: "Neoenergia Elektro", desconto: "15%", cdt: 'SM155' },
+      { nome: "CERMC", desconto: "10%", cdt: 'AX152' },
+      { nome: "CERRP", desconto: "10%", cdt: 'AX152' },
+      { nome: "CPFL Paulista", desconto: "15%", cdt: 'OR153' },
+      { nome: "CPFL Piratininga", desconto: "14%", cdt: 'IN154' },
+      { nome: "Cerim", desconto: "10%", cdt: 'AX152' },
+      { nome: "Cerpro", desconto: "10%", cdt: 'AX152' },
+      { nome: "Cetril", desconto: "10%", cdt: 'AX152' },
+      { nome: "EDP SP", desconto: "10%", cdt: 'AX152' },
+      { nome: "CPFL Santa Cruz", desconto: "15%", cdt: 'GD159' },
+      { nome: "Ceripa", desconto: "5%", cdt: 'AX152' },
+      { nome: "Ceris", desconto: "5%", cdt: 'AX152' },
+      { nome: "Cernhe", desconto: "5%", cdt: 'AX152' },
+      { nome: "ESS", desconto: "15%", cdt: 'GD159' },
+      // { nome: "Enel SP", desconto: "5%" }
     ] 
   },
-  { sigla: 'TO', distribuidoras: [] }
+  { sigla: 'TO', distribuidoras: [
+      { nome: 'Energisa TO', desconto: '15%', cdt: 'OR153' }
+    ] 
+  }
 ];
+
+interface FaixaDesconto {
+  limite: number; 
+  descontos: Record<string, string>;
+}
+
+const tabelaDescontos: FaixaDesconto[] = [
+  {
+    limite: 2000,
+    descontos: {
+      "Neoenergia Coelba": "15%",
+      "Enel CE": "15%",
+      "Enel GO (Equatorial)": "15%",
+      "Equatorial MA": "10%",
+      "Cemig-D": "18%",
+      "Energisa MS": "15%",
+      "Energisa MT": "15%",
+    },
+  },
+  {
+    limite: 3000,
+    descontos: {
+      "Neoenergia Coelba": "18%",
+      "Enel CE": "18%",
+      "Enel GO (Equatorial)": "18%",
+      "Equatorial MA": "10%",
+      "Cemig-D": "20%",
+      "Energisa MS": "18%",
+      "Energisa MT": "18%",
+    },
+  },
+  {
+    limite: 5000,
+    descontos: {
+      "Neoenergia Coelba": "18%",
+      "Enel CE": "18%",
+      "Enel GO (Equatorial)": "18%",
+      "Equatorial MA": "15%",
+      "Cemig-D": "22%",
+      "Energisa MS": "18%",
+      "Energisa MT": "18%",
+    },
+  },
+  {
+    limite: 10000,
+    descontos: {
+      "Neoenergia Coelba": "25%",
+      "Enel CE": "25%",
+      "Enel GO (Equatorial)": "25%",
+      "Equatorial MA": "15%",
+      "Cemig-D": "25%",
+      "Energisa MS": "25%",
+      "Energisa MT": "25%",
+    },
+  },
+  {
+    limite: 15000,
+    descontos: {
+      "Neoenergia Coelba": "25%",
+      "Enel CE": "25%",
+      "Enel GO (Equatorial)": "25%",
+      "Equatorial MA": "15%",
+      "Cemig-D": "25%",
+      "Energisa MS": "25%",
+      "Energisa MT": "25%",
+    },
+  },
+  {
+    limite: 25000,
+    descontos: {
+      "Cemig-D": "25%",
+      "Energisa MS": "25%",
+      "Energisa MT": "25%",
+    },
+  },
+  {
+    limite: 30000,
+    descontos: {
+      "Neoenergia Coelba": "25%",
+      "Enel CE": "25%",
+      "Enel GO (Equatorial)": "25%",
+      "Equatorial MA": "15%",
+      "Cemig-D": "25%",
+      "Energisa MS": "25%",
+      "Energisa MT": "25%",
+    },
+  },
+  {
+    limite: 50000,
+    descontos: {
+      "Neoenergia Coelba": "25%",
+      "Enel CE": "25%",
+      "Enel GO (Equatorial)": "25%",
+      "Equatorial MA": "15%",
+      "Cemig-D": "25%",
+      "Energisa MS": "25%",
+      "Energisa MT": "25%",
+    },
+  },
+  {
+    limite: 100000,
+    descontos: {
+      "Neoenergia Coelba": "25%",
+      "Enel CE": "25%",
+      "Enel GO (Equatorial)": "25%",
+      "Equatorial MA": "15%",
+      "Cemig-D": "25%",
+      "Energisa MS": "25%",
+      "Energisa MT": "25%",
+    },
+  },
+];
+
+function buscarDesconto(nome: string, valor: number, descontoPadrao: string): string {
+  for (let i = tabelaDescontos.length - 1; i >= 0; i--) {
+    if (valor >= tabelaDescontos[i].limite) {
+      const desconto = tabelaDescontos[i].descontos[nome];
+      return desconto || descontoPadrao;
+    }
+  }
+
+  return descontoPadrao;
+}
+
+
 
 function formatCpfCnpj(value: string): string {
   // Remove tudo que não for número
@@ -343,7 +471,7 @@ const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
         </S.Col12>
 
         <S.Col6>
-          <S.Select name="estado" required value={formData.estado} onChange={handle}>
+          <S.Select name="estado" id="estado" required value={formData.estado} onChange={handle}>
             <option>Selecione seu estado</option>
             {
               estados.map(estado => (
@@ -358,7 +486,7 @@ const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
         </S.Col6>
 
         <S.Col12>
-        <S.Select name="distribuidora" required value={formData.distribuidora} onChange={handleChange}>
+        <S.Select name="distribuidora" id="distribuidora" required value={formData.distribuidora} onChange={handleChange}>
             <option>Selecione a distribuidora</option>
             {
               estadoSelectedIndex >= 0 && estados[estadoSelectedIndex].distribuidoras.map(dis => (
@@ -499,11 +627,56 @@ function RenderForms({valorDesconto, goToWhatsApp, goToPdf, desconto, withPdf, h
     return <Form2 formData={form2Data} handleChange={handleChange2} loading={loading} />
   }
   if(valorDesconto) {
-    return <Response goToWhatsApp={goToWhatsApp} goToPdf={goToPdf} desconto={desconto} valorDesconto={valorDesconto} />
+      const estadoValue = document.querySelector("#estado") as HTMLInputElement
+      const distribuidoraValue = document.querySelector("#distribuidora") as HTMLInputElement
+      const estado = estados.findIndex(e => e.sigla === estadoValue.value)
+      const distribuidora = estados[estado].distribuidoras.findIndex(d => d.nome === distribuidoraValue.value)
+      const distribuidoraData = estados[estado].distribuidoras[distribuidora]
+      const valorForNumber = converterParaFloat(formData.valor)
+      const descontoAplicado = buscarDesconto(distribuidoraData.nome, valorForNumber, distribuidoraData.desconto)
+      const descontoFormat = Number(descontoAplicado.replace("%", ""))
+    return <Response goToWhatsApp={goToWhatsApp} goToPdf={goToPdf} desconto={descontoFormat} valorDesconto={valorDesconto} />
   }
   
   return <Form descontoText={descontoText} loading={loading} handleChange={handleChange} formData={formData} />
 }
+
+function converterParaFloat(valorFormatado: string): number {
+  const valorSemSimbolo = valorFormatado.replace("R$", "").trim();
+  
+ const valorComPonto = valorSemSimbolo.replace(/\./g, "").replace(",", ".");
+  
+  const valorFloat = parseFloat(valorComPonto);
+  
+  if (isNaN(valorFloat)) {
+      throw new Error("Formato de valor inválido. Esperado: R$ X.XXX,XX");
+  }
+  
+  return valorFloat;
+}
+
+const formatPhoneNumber = (value: string): string => {
+  const cleaned = value.replace(/\D/g, "");
+  if (cleaned.length <= 2) {
+    return `(${cleaned}`;
+  }
+  if (cleaned.length <= 7) {
+    return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2)}`;
+  }
+  if (cleaned.length <= 11) {
+    return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7)}`;
+  }
+  return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7, 11)}`;
+};
+
+const formatCurrency = (value: string): string => {
+  const cleaned = value.replace(/\D/g, "");
+  const numberValue = Number(cleaned) / 100;
+  return numberValue.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+};
 
 export default function Home() {
   const [desconto, setDesconto] = useState(0)
@@ -536,42 +709,7 @@ export default function Home() {
 
   const route = useRouter()
 
-  function converterParaFloat(valorFormatado: string): number {
-    const valorSemSimbolo = valorFormatado.replace("R$", "").trim();
-    
-   const valorComPonto = valorSemSimbolo.replace(/\./g, "").replace(",", ".");
-    
-    const valorFloat = parseFloat(valorComPonto);
-    
-    if (isNaN(valorFloat)) {
-        throw new Error("Formato de valor inválido. Esperado: R$ X.XXX,XX");
-    }
-    
-    return valorFloat;
-}
- 
-  const formatPhoneNumber = (value: string): string => {
-    const cleaned = value.replace(/\D/g, "");
-    if (cleaned.length <= 2) {
-      return `(${cleaned}`;
-    }
-    if (cleaned.length <= 7) {
-      return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2)}`;
-    }
-    if (cleaned.length <= 11) {
-      return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7)}`;
-    }
-    return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7, 11)}`;
-  };
-
-  const formatCurrency = (value: string): string => {
-    const cleaned = value.replace(/\D/g, "");
-    const numberValue = Number(cleaned) / 100;
-    return numberValue.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-  };
+  
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = event.target;
@@ -587,7 +725,9 @@ export default function Home() {
     if(name === 'distribuidora') {
       const estado = estados.findIndex(e => e.sigla === formData.estado)
       const distribuidora = estados[estado].distribuidoras.findIndex(d => d.nome === value)
-      const desconto = estados[estado].distribuidoras[distribuidora].desconto.replace("%", "")
+      const distribuidoraData = estados[estado].distribuidoras[distribuidora]
+      const desconto = distribuidoraData.desconto.replace("%", "")
+     
       setDesconto(Number(desconto))
     }
     setFormData((prev) => ({ ...prev, [name]: valueFormat }));
@@ -637,12 +777,23 @@ export default function Home() {
       setLead(response.data.id)
     })
     .finally(() => {
-      const valorForNumber = converterParaFloat(formData.valor); 
-      const percent = desconto / 100; 
+      const valorForNumber = converterParaFloat(formData.valor);
+
+      const estadoValue = document.querySelector("#estado") as HTMLInputElement
+      const distribuidoraValue = document.querySelector("#distribuidora") as HTMLInputElement
+      const estado = estados.findIndex(e => e.sigla === estadoValue.value)
+      const distribuidora = estados[estado].distribuidoras.findIndex(d => d.nome === distribuidoraValue.value)
+      const distribuidoraData = estados[estado].distribuidoras[distribuidora]
+      const descontoAplicado = buscarDesconto(distribuidoraData.nome, valorForNumber, distribuidoraData.desconto)
+      const descontoFormat = Number(descontoAplicado.replace("%", ""))
+      
+      const percent = descontoFormat / 100; 
       const descontoMensal = valorForNumber * percent; 
       const descontoArredondado = parseFloat(descontoMensal.toFixed(2)); 
 
       const descontoAnual = descontoArredondado * 12; 
+
+      
 
       const totalAplicado = formatCurrency(descontoAnual.toFixed(2).replace(".", ","));
       setValorDesconto(totalAplicado); // Define o valor formatado
