@@ -105,7 +105,7 @@ export const CardsContainer = styled.div`
     @media (min-width: 768px) {
         justify-content: space-between;
         flex-direction: row;
-        align-items: flex-start;
+        align-items: normal;
         gap: 0;
     }
     @media (min-width: 900px) {
@@ -160,6 +160,9 @@ export const MiniCard = styled.div<MiniCardProps>`
     justify-content: center;
     text-align: center;
     gap: 10px;
+    > img {
+        width: 35px;
+    }
 `
 
 export const TitleCard = styled.h3`
@@ -215,4 +218,119 @@ export const ListBenefitsItem = styled.div`
     img {
         width: 20px;
     }
+`
+
+export const Footer = styled.footer`
+    width: 100%;
+    background-color: #6900F7;
+    > div {
+        display: flex;
+        align-items: flex-start;
+        padding: 20px 0;
+    }
+`
+
+export const FooterBottomContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+`
+
+export const FooterTop = styled.div`
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: auto;
+    width: 450px;
+`
+
+export const FooterTopTitle = styled.h3`
+    font-family: "Manrope", sans-serif;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    strong {
+        background-color: #FC4505;
+    }
+`
+
+export const Footerimg = styled.img`
+    width: 60px;
+`
+
+export const FooterBottom = styled.div`
+    display: flex;
+    gap: 40px;
+    align-items: center;
+`
+
+export const FooterBottomTitle = styled.h3`
+    font-family: "Manrope", sans-serif;
+    color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+`
+
+export const FooterBottomNumber = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: normal;
+    justify-content: center;
+    img {
+        width: 36px;
+    }
+`
+
+export const boxMapa = styled.div`
+    background: url('/camada.png') no-repeat;
+    width: 350px;
+    background-size: 100%;
+    margin-top: -80px;
+    position: relative;
+    > img {
+        width: 250px;
+        margin-left: 67px;
+    }
+`
+
+export const BoxText = styled.span`
+    font-family: "Manrope", sans-serif;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    left: 20px;
+    bottom: 30px;
+    > strong {
+        background-color: #6900F7;
+        padding: 5px;
+        border-radius: 10px;
+    }
+`
+
+export const LogosRenovaveis = styled.img`
+    width: 300px;
+    align-self: flex-end;
+    margin-left: -30px;
+`
+
+export const SeloContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-left: auto;
+    width: 340px;
+`
+
+export const SeloTitle = styled.h3`
+    font-size: 15px;
+    font-family: "Manrope", sans-serif;
+    font-weight: bold;
+`
+
+export const Selo = styled.img`
+    width: 100px;
 `

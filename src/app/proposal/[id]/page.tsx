@@ -129,18 +129,22 @@ export default function ProposalPage() {
                 <S.Headline>Resultado da economia</S.Headline>
                 <S.MiniCardsContainer>
                     <S.MiniCard>
+                        <img src="/dinheiro.png" alt="" />
                         <S.TitleCard>{proposal.user.energy_value}</S.TitleCard>
-                        <p>Voce pagaa atualmente em media sem a c6</p>
+                        <p>Voce paga atualmente em media sem a c6</p>
                     </S.MiniCard>
                     <S.MiniCard color="#6900F7">
+                        <img src="/medidor.png" alt="" />
                         <S.TitleCard>{impactoAmbiental.kwhMes} KWH</S.TitleCard>
                         <p>Sua participação em cota da usina</p>
                     </S.MiniCard>
                     <S.MiniCard color="#107B49">
+                        <img src="/pegada_carbono.png" alt="" />
                         <S.TitleCard>{impactoAmbiental.pegadaCarbono} </S.TitleCard>
                         <p>Redução na pegada de carbono</p>
                     </S.MiniCard>
                     <S.MiniCard color="#107B49">
+                        <img src="/arvore.png" alt="" />
                         <S.TitleCard>{impactoAmbiental.arvoresPlantadas}</S.TitleCard>
                         <p>Arvores plantadas</p>
                     </S.MiniCard>
@@ -172,7 +176,42 @@ export default function ProposalPage() {
                         </S.MiniCard>
                     </S.BenefitsCardsContainer>
                 </S.BenefitsContainer>
+                <S.SeloContainer>
+                    <S.SeloTitle>
+                        Cliente empresa C6 Energy<br /> recebe Selo e Certificado<br/> de energia limpa e renovável
+                    </S.SeloTitle>
+                    <S.Selo src="/logo_esg.png" alt="" />
+                </S.SeloContainer>
+                
             </S.Container>
+            <S.Footer>
+                <S.Container>
+                    <S.boxMapa>
+                        <img src="/mapa.png" alt="" />
+                        <S.BoxText>atendemos<br/> todo o <br/>territorio<br/> <strong>nacional</strong></S.BoxText>
+                    </S.boxMapa>
+                    <S.FooterBottomContainer>
+                        <S.FooterTop>
+                            <S.Footerimg src="/energia_limpa.png" alt="" />
+                            <S.FooterTopTitle>
+                                Sua parceria em <strong>energia limpa</strong> economica
+                            </S.FooterTopTitle>
+                        </S.FooterTop>
+                        <S.FooterBottom>
+                            <S.LogosRenovaveis src="/logos_renovaveis.png" alt="" />
+                            <S.FooterBottomTitle>
+                                <S.FooterBottomNumber>
+                                    <img src="/icon-whatsapp.png" alt="" /> (11) 93908-0968
+                                </S.FooterBottomNumber>
+                                contato@c6energy.com.br
+                                www.c6energy.com.br
+                            </S.FooterBottomTitle>
+                        </S.FooterBottom>
+                    </S.FooterBottomContainer>
+                    
+                    
+                </S.Container>
+            </S.Footer>
         </>
     )
 }
