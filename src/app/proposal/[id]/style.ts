@@ -359,10 +359,10 @@ export const Selo = styled.img`
     width: 100px;
 `
 
-export const COntainerBtn = styled.div`
+export const COntainerBtn = styled.div<ContainerGeralProps>`
     display: none;
     @media (min-width: 1200px) {
-        display: flex;
+        display: ${({pdf}) => pdf === 'true' ? 'none' : 'flex'};
         justify-content: center;
         width: 100%;
         margin: 30px auto;

@@ -199,7 +199,7 @@ export default function ProposalPage() {
                     </S.SeloTitle>
                     <S.Selo src="/logo_esg.png" alt="" />
                 </S.SeloContainer>
-                <S.COntainerBtn>
+                <S.COntainerBtn pdf={renderPdf.toString()}>
                     <SG.Button onClick={handlePdf}>Baixar em PDF</SG.Button>
                 </S.COntainerBtn>
             </S.Container>
