@@ -14,7 +14,7 @@ export default function PartnerPage() {
                      Parceiros
                      <S.HeadlineActions>
                         <SG.Button onClick={() => undefined}>Novo parceiro</SG.Button>
-                        <SG.Button type='secondary' onClick={() => undefined}>Grupos</SG.Button>
+                        <SG.Button style='secondary' onClick={() => undefined}>Grupos</SG.Button>
                     </S.HeadlineActions>
                 </S.Headline>
                 <S.Table>

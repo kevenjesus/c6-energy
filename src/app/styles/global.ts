@@ -35,7 +35,7 @@ export const Input = styled.input`
 `
 
 interface ButtonProps {
-    type?: 'primary' | 'secondary'
+    style?: 'primary' | 'secondary'
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -44,7 +44,7 @@ export const Button = styled.button<ButtonProps>`
     text-transform: uppercase;
     padding: 15px 33px 15px 33px;
     border-radius: 6px;
-    background-color:${({type}) => type === 'secondary' ? '#5600C3' : '#FF5E00'};
+    background-color:${({style}) => style === 'secondary' ? '#5600C3' : '#FF5E00'};
     color: #fff;
     min-height: 40px;
     cursor: pointer;
@@ -56,7 +56,7 @@ export const Button = styled.button<ButtonProps>`
     gap: 12px;
     &:hover,
     &:disabled {
-        background-color:${({type}) => type === 'secondary' ? '#FF5E00' : '#5600C3'};
+        background-color:${({style}) => style === 'secondary' ? '#FF5E00' : '#5600C3'};
     }
     &:disabled {
         cursor: auto;
