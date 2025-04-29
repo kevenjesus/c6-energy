@@ -1,5 +1,13 @@
 import styled from 'styled-components'
 
+interface ContainerGeralProps {
+    pdf?: string
+}
+
+export const ContainerGeral = styled.div<ContainerGeralProps>`
+    width: ${({pdf}) => pdf === 'true' ? '1200px' : '100%'};
+`
+
 export const Header = styled.div`
     width: 100%;
     height: auto;
@@ -240,19 +248,25 @@ export const FooterTop = styled.div`
     display: flex;
     gap: 20px;
     align-items: center;
+    justify-content: center;
     margin-left: auto;
     width: 450px;
+    @media (min-width: 1200px) {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
 `
 
-export const FooterTopTitle = styled.h3`
+export const FooterTopTitle = styled.h3<ContainerGeralProps>`
     font-family: "Manrope", sans-serif;
     color: #fff;
     font-size: 25px;
     font-weight: bold;
     text-transform: uppercase;
     strong {
-        background-color: #FC4505;
+        background-color: ${({pdf}) => pdf === 'true' ? 'transparent' : '#FC4505'};
     }
+
 `
 
 export const Footerimg = styled.img`
@@ -263,6 +277,10 @@ export const FooterBottom = styled.div`
     display: flex;
     gap: 40px;
     align-items: center;
+    flex-direction: column;
+    @media (min-width: 1200px) {
+        flex-direction: row;
+    }
 `
 
 export const FooterBottomTitle = styled.h3`
@@ -290,10 +308,14 @@ export const boxMapa = styled.div`
     background-size: 100%;
     margin-top: -80px;
     position: relative;
+    display: none;
     > img {
         width: 250px;
         margin-left: 67px;
     }
+    @media (min-width: 1200px) {
+        display: block;
+    } 
 `
 
 export const BoxText = styled.span`
@@ -313,8 +335,10 @@ export const BoxText = styled.span`
 
 export const LogosRenovaveis = styled.img`
     width: 300px;
-    align-self: flex-end;
-    margin-left: -30px;
+    @media (min-width: 1200px) {
+        align-self: flex-end;
+        margin-left: -30px;
+    }
 `
 
 export const SeloContainer = styled.div`
@@ -333,4 +357,14 @@ export const SeloTitle = styled.h3`
 
 export const Selo = styled.img`
     width: 100px;
+`
+
+export const COntainerBtn = styled.div`
+    display: none;
+    @media (min-width: 1200px) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 30px auto;
+    }
 `

@@ -12,9 +12,11 @@
     "@react-pdf/renderer": "^4.3.0",
     "@supabase/supabase-js": "^2.48.1",
     "formidable": "^3.5.2",
+    "html2pdf.js": "^0.10.3",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-to-pdf": "^2.0.0",
     "react-toastify": "^11.0.5"
   },
   "devDependencies": {

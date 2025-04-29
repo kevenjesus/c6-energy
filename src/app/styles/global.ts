@@ -34,25 +34,29 @@ export const Input = styled.input`
     }
 `
 
-export const Button = styled.button`
+interface ButtonProps {
+    type?: 'primary' | 'secondary'
+}
+
+export const Button = styled.button<ButtonProps>`
     border: 0;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: uppercase;
     padding: 15px 33px 15px 33px;
     border-radius: 6px;
-    background-color: #FF5E00;
+    background-color:${({type}) => type === 'secondary' ? '#5600C3' : '#FF5E00'};
     color: #fff;
     min-height: 40px;
     cursor: pointer;
     letter-spacing: -0.5px;
-    font-weight: 600;
+    font-weight: 700;
     font-family: var(--font-manrope);
     transition: all ease-in-out .3s;
     display: flex;
     gap: 12px;
     &:hover,
     &:disabled {
-        background-color: #39008E;
+        background-color:${({type}) => type === 'secondary' ? '#FF5E00' : '#5600C3'};
     }
     &:disabled {
         cursor: auto;

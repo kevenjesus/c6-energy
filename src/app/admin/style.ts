@@ -38,3 +38,8 @@ export const Headline = styled.h2`
     justify-content: space-between;
     font-family: "Manrope", sans-serif;
 `
+
+export const HeadlineActions = styled.div`
+    display: flex;
+    gap: 15px;
+`

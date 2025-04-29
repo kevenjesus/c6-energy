@@ -15,6 +15,7 @@ export const Loading = styled.div`
     flex-direction: column;
     gap: 15px;
     background-color: #6800F5;
+    z-index: 2;
 `
 
 export const Headline = styled.h2`

@@ -2,7 +2,11 @@
   
 import useProposal from "@/app/hooks/useProposal"
 import * as S from './style'
+import * as SG from '@/app/styles/global'
 import Loading from "@/app/components/Loading";
+import { useState } from "react";
+import { usePDF } from 'react-to-pdf';
+
 
 function calcularImpactoAmbiental(valorContaMensal: number) {
     const precoPorKWh = 0.90; // R$/kWh
@@ -52,6 +56,8 @@ function calcularImpactoAmbiental(valorContaMensal: number) {
 
 export default function ProposalPage() {
     const { loading, proposal } = useProposal()
+    const { toPDF, targetRef } = usePDF();
+    const [renderPdf, setRenderPdf] = useState(false)
 
     if(loading) {
         return <Loading headline="Carregando proposta..." />
@@ -78,9 +84,20 @@ export default function ProposalPage() {
     const impactoAmbiental = calcularImpactoAmbiental(valorConta)
     const economia1Ano = calcularEconomiaEstimativa(valorConta, proposal.user.discount, 12)
     const economia5Anos = calcularEconomiaEstimativa(valorConta, proposal.user.discount, 60)
+
+    const handlePdf = () => {
+        setRenderPdf(true)
+        setTimeout(() => {
+            toPDF({filename: `proposta-${proposal.user.name}.pdf`})
+            setRenderPdf(false)
+        }, 1000) 
+    }
     
     return (
         <>
+            {renderPdf && <Loading headline="Gerando PDF da proposta..." />}
+        
+        <S.ContainerGeral ref={targetRef} pdf={renderPdf.toString()}>
             <S.Header>
                 <S.Branding>
                     <img src="/logotipo.png" alt="C6 ENERGY" />
@@ -182,7 +199,9 @@ export default function ProposalPage() {
                     </S.SeloTitle>
                     <S.Selo src="/logo_esg.png" alt="" />
                 </S.SeloContainer>
-                
+                <S.COntainerBtn>
+                    <SG.Button onClick={handlePdf}>Baixar em PDF</SG.Button>
+                </S.COntainerBtn>
             </S.Container>
             <S.Footer>
                 <S.Container>
@@ -193,7 +212,7 @@ export default function ProposalPage() {
                     <S.FooterBottomContainer>
                         <S.FooterTop>
                             <S.Footerimg src="/energia_limpa.png" alt="" />
-                            <S.FooterTopTitle>
+                            <S.FooterTopTitle pdf={renderPdf.toString()}>
                                 Sua parceria em <strong>energia limpa</strong> economica
                             </S.FooterTopTitle>
                         </S.FooterTop>
@@ -212,6 +231,7 @@ export default function ProposalPage() {
                     
                 </S.Container>
             </S.Footer>
+        </S.ContainerGeral>
         </>
     )
 }
