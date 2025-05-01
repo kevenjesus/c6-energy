@@ -1,21 +1,35 @@
 import { useEffect, useState } from "react"
-import { PartnerGroup, userAdminfrontData } from "../services/types"
+import { PartnerGroup, userAdminData, userAdminFormData, userAdminfrontData } from "../services/types"
+import { toast } from "react-toastify"
+import { formatPhoneNumber } from "../page"
+import { group } from "console"
 
-type ModPartnerType = 'Novo vendedor' | 'Alterar vendedor'
+type ModPartnerType = 'Novo vendedor(a)' | 'Alterar vendedor(a)'
+const formDataPartnerDefault: userAdminFormData = {
+    name: '',
+    telefone: '',
+    group: '',
+    username: '',
+    password: '',
+    repassword: ''
+}
 
 export default function usePartner() {
-    const [openModalGrupos, setModalGrupos] = useState(false)
     const [openModalPartners, setModalPartners] = useState(false)
-    const [modParther, setModPartner] = useState<ModPartnerType>('Novo vendedor')
+    const [modParther, setModPartner] = useState<ModPartnerType>('Novo vendedor(a)')
     const [partners, setPartners] = useState<userAdminfrontData[]>([])
-    const [groups, setGroups] = useState<PartnerGroup[]>([])
+    const [partner, setPartner] = useState<userAdminfrontData | null>(null)
+    const [formDataPartner, setFormDataPartner] = useState<userAdminFormData>(formDataPartnerDefault)
 
-    const onCloseModalGroups = () => {
-        setModalGrupos(false)
-    }
+    const handleChangePartner = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = event.target;
+        let  valueFormat = value
 
-    const onOpenModalGroups = () => {
-        setModalGrupos(true)
+        if(name === 'telefone') {
+            valueFormat = formatPhoneNumber(value)
+        }
+
+        setFormDataPartner((prev) => ({ ...prev, [name]: valueFormat }));
     }
 
     const onCloseModalPartner = () => {
@@ -30,32 +44,177 @@ export default function usePartner() {
         setModPartner(mod)
     }
 
-    const getPartnersandGroups = async () => {
+    const onSelectPartner = (data: userAdminfrontData) => {
+        setPartner(data)
+    }
+
+    const postUserData = async () => {
+        const data: any = {
+            name: formDataPartner.name,
+            telefone: formDataPartner.telefone,
+            group: formDataPartner.group,
+            username: formDataPartner.username,
+            password: formDataPartner.password
+        }
+        try {
+            const request = await fetch('/api/partner/post-partner', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            const response = await request.json()
+            setPartners(prevState => [...prevState, response.data[0]])
+            toast('Novo parceiro(a) criado com sucesso', {type: 'success'})
+        } catch (err) {
+            toast('Erro ao criar parceiro(a). tente novamente', {type: 'error'})
+        }
+    }
+
+    const updateUserData = async () => {
+        const data: any = {
+            id: partner?.id,
+            name: formDataPartner.name,
+            telefone: formDataPartner.telefone,
+            group: formDataPartner.group,
+            username: formDataPartner.username,
+        }
+        if(formDataPartner.password) {
+            data.password = formDataPartner.password
+        }
+        
+            const request = await fetch('/api/partner/update-partner', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            const response = await request.json()
+            if(response.error) {
+                toast('Erro ao atualizar parceiro(a). tente novamente', {type: 'error'})
+            }else {
+                const dataItem = response.data[0] as userAdminfrontData
+                const updatedPartner = partners.map(p => {
+                    if(p.id === dataItem.id) {
+                        return dataItem
+                    }
+                    return p;
+                })
+                setPartners(updatedPartner)
+                onCloseModalPartner()
+                toast(`Parceiro(a) ${formDataPartner.name} atualizado(a) com sucesso`, {type: 'success'})
+            }
+    }
+
+    const deleteUserData = async (user: userAdminfrontData) => {
+        
+            const request = await fetch('/api/partner/delete-partner', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id: user.id})
+            })
+            const response = await request.json()
+            if(response.error) {
+                toast('Erro ao deletar parceiro(a). tente novamente', {type: 'error'})
+            }else {
+                await getPartners()
+                toast(`Parceiro(a) ${user.name} deletado(a) com sucesso`, {type: 'success'})
+            }   
+        
+    }
+
+    const onSubmitPartner = async (event: React.ChangeEvent<HTMLFormElement>) => {
+        event.preventDefault()
+
+        if(!formDataPartner.name.length) {
+            toast('Preencha o campo nome', {type: 'warning'})
+            return;
+        }
+        if(!formDataPartner.group.length) {
+            toast('Selecione um grupo', {type: 'warning'})
+            return;
+        }
+        if(!formDataPartner.telefone.length) {
+            toast('Preencha o campo telefone', {type: 'warning'})
+            return;
+        }
+       
+            
+        if(partner) {
+            await updateUserData()
+        }else {
+            if(!formDataPartner.password.length) {
+                toast('Preencha o campo senha', {type: 'warning'})
+                return;
+            }
+        
+            if(formDataPartner.password !== formDataPartner.repassword) {
+                toast('Confirmação de senha deve ser igual a senha', {type: 'warning'})
+                return;
+            }
+            await postUserData()
+        }
+    }
+
+    const onDeleteUser = async (user: userAdminfrontData) => {
+        if(confirm('Tem certeza que deseja deletar o parceiro(a)?')) {
+            await deleteUserData(user)
+        }
+    }
+
+    const onAddUser = () => {
+        setPartner(null)
+        setModPartner('Novo vendedor(a)')
+        setFormDataPartner(formDataPartnerDefault)
+        onOpenModalPartner()
+    }
+
+    const onEditUser = (user: userAdminfrontData) => {
+        onSelectPartner(user)
+        onChangeModPartner('Alterar vendedor(a)')
+        setFormDataPartner({
+            name: user.name, 
+            telefone: user.telefone, 
+            group: user.partner_group.id,
+            username: user.username,
+            password: '',
+            repassword: '' 
+        })
+        onOpenModalPartner()
+    }
+
+    const getPartners = async () => {
         const requestParters = await fetch('/api/partner/get-partners')
-        const requestGroups = await fetch('/api/groups/get-groups')
         const responsePartners = await requestParters.json()
-        const responseGroups = await requestGroups.json()
         setPartners(responsePartners.data)
-        setGroups(responseGroups.data)
     }
 
     useEffect(() => {
-        async function getPartnersandGroupsData() {
-            await getPartnersandGroups()
+        async function getPartnersData() {
+            await getPartners()
         }
-        getPartnersandGroupsData()
+        getPartnersData()
     }, [])
+    console.log('form,data', formDataPartner)
 
     return {
+        formDataPartner,
+        partner,
         partners,
-        groups,
-        openModalGrupos,
         openModalPartners,
         modParther,
-        onCloseModalGroups,
+        onSubmitPartner,
         onCloseModalPartner,
         onOpenModalPartner,
-        onOpenModalGroups,
-        onChangeModPartner
+        onChangeModPartner,
+        onSelectPartner,
+        handleChangePartner,
+        onEditUser,
+        onDeleteUser,
+        onAddUser
     }
 }

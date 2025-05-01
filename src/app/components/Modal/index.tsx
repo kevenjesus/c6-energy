@@ -32,8 +32,8 @@ export default function Modal({open, title, children, actionText = 'salvar', idA
                 </S.ModalHeader>
                 <S.ModalBody>{children}</S.ModalBody>
                 <S.ModalFooter>
-                    <SG.Button theme='secondary' onClick={() => onClose()}>Fechar</SG.Button>
                     <SG.Button type='submit' onClick={onAction} form={idAction}>{actionText}</SG.Button>
+                    <SG.Button theme='secondary' onClick={() => onClose()}>Fechar</SG.Button>
                 </S.ModalFooter>
             </S.ModalContent>
         </S.Modal>

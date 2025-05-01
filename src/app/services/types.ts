@@ -53,6 +53,15 @@ export type PartnerGroup = {
     group: string;
   };
 
+  export type userAdminFormData = {
+    name: string;
+    username: string;
+    password: string;
+    repassword: string;
+    telefone: string;
+    group: string;
+  };
+
   export type userAdminfrontData = {
     id: string;
     name: string;

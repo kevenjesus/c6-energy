@@ -11,10 +11,16 @@ import useGroups from '@/app/hooks/useGroups'
 
 export default function PartnerPage() {
     const { 
+        formDataPartner,
+        partner,
         partners,
         openModalPartners, 
         modParther,
-        onOpenModalPartner,
+        onAddUser,
+        onSubmitPartner,
+        onEditUser,
+        onDeleteUser,
+        handleChangePartner,
         onCloseModalPartner 
     } = usePartner()
     const {  
@@ -61,22 +67,29 @@ export default function PartnerPage() {
             </Modal>
 
             <Modal open={openModalPartners} idAction='form-patner' title={modParther} onClose={onCloseModalPartner} onAction={() => undefined}>
-                <form method='post' action="#" id='form-patner'>
-                    <S.Input type='text' required name='name' placeholder='Nome do vendedor *' />
-                    <S.Input type='text' required name='telefone' placeholder='(00) 00000-0000 *' />
-                    <S.Select>
-                        <option>Selecione um grupo</option>
+                <form method='post' onSubmit={onSubmitPartner} action="#" id='form-patner'>
+                    <S.Input type='text' value={formDataPartner.name} onChange={handleChangePartner} required name='name' placeholder='Nome do vendedor *' />
+                    <S.Input type='text' value={formDataPartner.telefone} onChange={handleChangePartner} required name='telefone' placeholder='(00) 00000-0000 *' />
+                    <S.Select name='group' required value={formDataPartner.group} onChange={handleChangePartner}>
+                        <option>selecione um grupo *</option>
+                        {
+                            groups.map(group => {
+                                return (
+                                    <option key={group.id} value={group.id}>{group.name}</option>
+                                )
+                            })
+                        }
                     </S.Select>
-                    <S.Input type='text' required name='username' placeholder='Username *' />
-                    <S.Input type='password' required name='password' placeholder='senha *' />
-                    <S.Input type='password' required name='repassword' placeholder='Confirmar senha *' />
+                    <S.Input type='text' value={formDataPartner.username} onChange={handleChangePartner} required name='username' placeholder='Username *' />
+                    <S.Input type='password' value={formDataPartner.password} onChange={handleChangePartner} required={partner === null} name='password' placeholder='senha *' />
+                    <S.Input type='password' value={formDataPartner.repassword} onChange={handleChangePartner} required={partner === null} name='repassword' placeholder='Confirmar senha *' />
                 </form> 
             </Modal>
             <S.Container>
                 <S.Headline>
                      Vendedores
                      <S.HeadlineActions>
-                        <SG.Button onClick={onOpenModalPartner}>Novo parceiro</SG.Button>
+                        <SG.Button onClick={onAddUser}>Novo parceiro</SG.Button>
                         <SG.Button theme='secondary' onClick={onOpenModalGroups}>Grupos</SG.Button>
                     </S.HeadlineActions>
                 </S.Headline>
@@ -100,10 +113,10 @@ export default function PartnerPage() {
                                     <S.Td>{partner.partner_group.name}</S.Td>
                                     <S.Td>{partner.username}</S.Td>
                                     <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
-                                        <SG.Button size='small' theme='secondary'>
+                                        <SG.Button onClick={() => onEditUser(partner)} size='small' theme='secondary'>
                                             <img width={16} src='/icon-edit.png' alt='' />
                                         </SG.Button>
-                                        <SG.Button size='small' theme='secondary'>
+                                        <SG.Button onClick={() => onDeleteUser(partner)} size='small' theme='secondary'>
                                             <img width={16} src='/icon-trash.png' alt='' />
                                         </SG.Button>
                                     </S.Td>

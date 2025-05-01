@@ -107,7 +107,7 @@ const UsersAdmin = {
         .from('users_admin')
         .update(dataUpdate)
         .eq('id', dataUser.id) 
-        .select()
+        .select('id, name, role_admin: role(name), username, partner_group: group(id, name), telefone')
         if(error) {
             return {
                 error: true,

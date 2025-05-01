@@ -655,7 +655,7 @@ function converterParaFloat(valorFormatado: string): number {
   return valorFloat;
 }
 
-const formatPhoneNumber = (value: string): string => {
+export const formatPhoneNumber = (value: string): string => {
   const cleaned = value.replace(/\D/g, "");
   if (cleaned.length <= 2) {
     return `(${cleaned}`;
