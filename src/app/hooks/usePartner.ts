@@ -29,6 +29,10 @@ export default function usePartner() {
             valueFormat = formatPhoneNumber(value)
         }
 
+        if(name === 'username') {
+            valueFormat = valueFormat.replace(/\s/g, '')
+        }
+
         setFormDataPartner((prev) => ({ ...prev, [name]: valueFormat }));
     }
 
@@ -109,22 +113,20 @@ export default function usePartner() {
     }
 
     const deleteUserData = async (user: userAdminfrontData) => {
-        
-            const request = await fetch('/api/partner/delete-partner', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({id: user.id})
-            })
-            const response = await request.json()
-            if(response.error) {
-                toast('Erro ao deletar parceiro(a). tente novamente', {type: 'error'})
-            }else {
-                await getPartners()
-                toast(`Parceiro(a) ${user.name} deletado(a) com sucesso`, {type: 'success'})
-            }   
-        
+        const request = await fetch('/api/partner/delete-partner', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: user.id})
+        })
+        const response = await request.json()
+        if(response.error) {
+            toast('Erro ao deletar parceiro(a). tente novamente', {type: 'error'})
+        }else {
+            await getPartners()
+            toast(`Parceiro(a) ${user.name} deletado(a) com sucesso`, {type: 'success'})
+        }   
     }
 
     const onSubmitPartner = async (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -193,13 +195,22 @@ export default function usePartner() {
         setPartners(responsePartners.data)
     }
 
+    const handleCopy = async (user: userAdminfrontData) => {
+        const link =`${window.location.origin}?ref=${user.username}`
+        try {
+            await navigator.clipboard.writeText(link);
+            toast('Link copiado com sucesso', {type: 'success'})
+        } catch (err) {
+           toast('Error ao tentar copiar link de vendedor(a)', {type: 'error'})
+        }
+    };
+
     useEffect(() => {
         async function getPartnersData() {
             await getPartners()
         }
         getPartnersData()
     }, [])
-    console.log('form,data', formDataPartner)
 
     return {
         formDataPartner,
@@ -207,6 +218,7 @@ export default function usePartner() {
         partners,
         openModalPartners,
         modParther,
+        handleCopy,
         onSubmitPartner,
         onCloseModalPartner,
         onOpenModalPartner,

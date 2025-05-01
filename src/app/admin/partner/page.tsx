@@ -21,11 +21,18 @@ export default function PartnerPage() {
         onEditUser,
         onDeleteUser,
         handleChangePartner,
-        onCloseModalPartner 
+        onCloseModalPartner,
+        handleCopy
     } = usePartner()
     const {  
         groups, 
-        openModalGrupos,  
+        group,
+        groupField,
+        openModalGrupos,
+        onChangeGroupField,
+        onDeleteGroup,
+        onSubmitGroup,
+        onEditGroup,
         onOpenModalGroups, 
         onCloseModalGroups
     } = useGroups()
@@ -33,10 +40,11 @@ export default function PartnerPage() {
         <PageProtect>
             <Header />
             <Modal open={openModalGrupos} title="Grupos" onClose={onCloseModalGroups} onAction={() => undefined}>
-                <S.FormGroup id='form-grupo'>
-                    <S.Input type='text' required name='name' placeholder='Nome do grupo' />
+                <S.FormGroup onSubmit={onSubmitGroup} id='form-grupo'>
+                    <S.Input type='text' required value={groupField} onChange={onChangeGroupField} name='name' placeholder='Nome do grupo' />
                     <SG.Button type='submit'>Salvar</SG.Button>
                 </S.FormGroup>
+                <S.ListModal>
                 <S.Table>
                     <thead>
                         <tr>
@@ -51,10 +59,10 @@ export default function PartnerPage() {
                                     <tr key={group.id}>
                                         <S.Td>{group.name}</S.Td>
                                         <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
-                                            <SG.Button size='small' theme='secondary'>
+                                            <SG.Button onClick={() => onEditGroup(group)} size='small' theme='secondary'>
                                                 <img width={16} src='/icon-edit.png' alt='' />
                                             </SG.Button>
-                                            <SG.Button size='small' theme='secondary'>
+                                            <SG.Button onClick={() => onDeleteGroup(group)} size='small' theme='secondary'>
                                                 <img width={16} src='/icon-trash.png' alt='' />
                                             </SG.Button>
                                         </S.Td>
@@ -64,6 +72,7 @@ export default function PartnerPage() {
                         }
                     </tbody>
                 </S.Table>    
+                </S.ListModal>
             </Modal>
 
             <Modal open={openModalPartners} idAction='form-patner' title={modParther} onClose={onCloseModalPartner} onAction={() => undefined}>
@@ -113,6 +122,9 @@ export default function PartnerPage() {
                                     <S.Td>{partner.partner_group.name}</S.Td>
                                     <S.Td>{partner.username}</S.Td>
                                     <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
+                                    <   SG.Button title='Copiar link do vendedor' onClick={() => handleCopy(partner)} size='small' theme='secondary'>
+                                            <img width={16} src='/icon-link.png' alt='' />
+                                        </SG.Button>
                                         <SG.Button onClick={() => onEditUser(partner)} size='small' theme='secondary'>
                                             <img width={16} src='/icon-edit.png' alt='' />
                                         </SG.Button>

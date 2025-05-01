@@ -86,3 +86,8 @@ export const FormGroup = styled.form`
         margin-bottom: 0;
     }
 `
+
+export const ListModal = styled.div`
+    max-height: 350px;
+    overflow-y: auto;
+`
