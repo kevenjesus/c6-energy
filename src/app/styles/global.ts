@@ -50,13 +50,14 @@ export const Select = styled.select`
 
 interface ButtonProps {
     theme?: 'primary' | 'secondary'
+    size?: 'normal' | 'small'
 }
 
 export const Button = styled.button<ButtonProps>`
     border: 0;
     font-size: 16px;
     text-transform: uppercase;
-    padding: 15px 33px 15px 33px;
+    padding: ${({size}) => size === 'small' ? '10px 15px' : '15px 33px 15px 33px'};
     border-radius: 6px;
     background-color:${({theme}) => theme === 'secondary' ? '#5600C3' : '#FF5E00'};
     color: #fff;

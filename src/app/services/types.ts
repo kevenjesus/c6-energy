@@ -31,7 +31,7 @@ export type PartnerGroup = {
     name: string;
     username: string;
     password?: string;
-    telefone: string | null;
+    telefone: string;
     role_admin: RoleAdmin;
     partner_group: PartnerGroup | null;
   };
@@ -41,7 +41,7 @@ export type PartnerGroup = {
     name: string;
     username: string;
     password?: string;
-    telefone: string | null;
+    telefone: string;
     group: string
   };
 
@@ -49,7 +49,19 @@ export type PartnerGroup = {
     name: string;
     username: string;
     password?: string;
-    telefone: string | null;
+    telefone: string;
     group: string;
+  };
+
+  export type userAdminfrontData = {
+    id: string;
+    name: string;
+    username: string;
+    password?: string;
+    telefone: string;
+    partner_group: {
+      id: string,
+      name: string
+    };
   };
   

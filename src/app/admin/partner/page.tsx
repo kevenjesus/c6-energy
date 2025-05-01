@@ -7,17 +7,22 @@ import Header from '@/app/components/Header'
 import Modal from '@/app/components/Modal'
 import { useState } from 'react'
 import usePartner from '@/app/hooks/usePartner'
+import useGroups from '@/app/hooks/useGroups'
 
 export default function PartnerPage() {
     const { 
-        openModalGrupos, 
+        partners,
         openModalPartners, 
         modParther,
-        onOpenModalGroups,
         onOpenModalPartner,
-        onCloseModalGroups,
         onCloseModalPartner 
     } = usePartner()
+    const {  
+        groups, 
+        openModalGrupos,  
+        onOpenModalGroups, 
+        onCloseModalGroups
+    } = useGroups()
     return (
         <PageProtect>
             <Header />
@@ -34,9 +39,23 @@ export default function PartnerPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <S.Td colSpan={2} align='center'>Nenhum registro</S.Td>
-                        </tr>
+                        {
+                            groups.map(group => {
+                                return (
+                                    <tr key={group.id}>
+                                        <S.Td>{group.name}</S.Td>
+                                        <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
+                                            <SG.Button size='small' theme='secondary'>
+                                                <img width={16} src='/icon-edit.png' alt='' />
+                                            </SG.Button>
+                                            <SG.Button size='small' theme='secondary'>
+                                                <img width={16} src='/icon-trash.png' alt='' />
+                                            </SG.Button>
+                                        </S.Td>
+                                    </tr>
+                                )
+                            })
+                        }
                     </tbody>
                 </S.Table>    
             </Modal>
@@ -72,9 +91,26 @@ export default function PartnerPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <S.Td colSpan={5} align='center'>Nenhum registro</S.Td>
-                    </tr>
+                    {
+                        partners.map(partner => {
+                            return (
+                                <tr key={partner.id}>
+                                    <S.Td>{partner.name}</S.Td>
+                                    <S.Td align='center'>{partner.telefone}</S.Td>
+                                    <S.Td>{partner.partner_group.name}</S.Td>
+                                    <S.Td>{partner.username}</S.Td>
+                                    <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
+                                        <SG.Button size='small' theme='secondary'>
+                                            <img width={16} src='/icon-edit.png' alt='' />
+                                        </SG.Button>
+                                        <SG.Button size='small' theme='secondary'>
+                                            <img width={16} src='/icon-trash.png' alt='' />
+                                        </SG.Button>
+                                    </S.Td>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
                 </S.Table>
             </S.Container>
