@@ -125,7 +125,6 @@ export default function useGroups() {
         getGroupsData()
     }, [])
 
-    console.log('group', group, groupField)
 
     return {
         groups,

@@ -26,7 +26,6 @@ function calcularImpactoAmbiental(valorContaMensal: number) {
   }
 
   function parseCurrencyToNumber(valor: string): number {
-    console.log('valor', valor)
     const sanitized = valor
       .replace("R$", "")
       .replace(/\s/g, "")

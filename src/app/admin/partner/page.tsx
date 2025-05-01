@@ -53,6 +53,9 @@ export default function PartnerPage() {
                         </tr>
                     </thead>
                     <tbody>
+                    {
+                        groups.length === 0 && <tr><S.Td colSpan={2}>Nenhum grupo cadastrado</S.Td></tr>
+                    }
                         {
                             groups.map(group => {
                                 return (
@@ -113,6 +116,9 @@ export default function PartnerPage() {
                     </tr>
                 </thead>
                 <tbody>
+                    {
+                        partners.length === 0 && <tr><S.Td colSpan={5}>Nenhum vendedor(a) cadastrado</S.Td></tr>
+                    }
                     {
                         partners.map(partner => {
                             return (

@@ -825,7 +825,6 @@ export default function Home() {
         return response.json()
       })
       .then(response => {
-        console.log(response)
         route.push(`/proposal/${response.data.id}`)
       })
   }
