@@ -43,3 +43,46 @@ export const HeadlineActions = styled.div`
     display: flex;
     gap: 15px;
 `
+
+export const Input = styled.input`
+    width: 100%;
+    background-color:#dcd8d8;
+    border-width: 0px 0px 0px 0px;
+    border-radius: 15px 15px 15px 15px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #000;
+    padding: 16px 23px 16px 23px;
+    outline: none;
+    margin-bottom: 15px;
+    &::placeholder {
+        color: #000;
+    }
+`
+
+export const Select = styled.select`
+  background-color: #dcd8d8;
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: 400;
+  color: #000;
+  padding: 16px 23px;
+  width: 100%;
+  margin-bottom: 15px;
+
+  &::placeholder {
+    color: #000;
+  }
+`
+
+export const FormGroup = styled.form`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin: 20px 0;
+    input {
+        margin-bottom: 0;
+    }
+`
