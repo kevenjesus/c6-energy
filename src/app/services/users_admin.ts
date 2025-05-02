@@ -123,7 +123,7 @@ const UsersAdmin = {
     authUser: async ({username, password}: UserAuthTypes): Promise<ResponseSupbase> => {
         let { data, error } = await supabase
         .from('users_admin')
-        .select("id, name, role_admin(name)")
+        .select("id, name, username, role_admin: role(id, name)")
         .eq('username', username)
         .eq('password', password)
         if(error) {

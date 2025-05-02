@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { toast } from "react-toastify"
+import { useAdminContext, UserData } from "../context/adminContext";
 
 export interface leadData {
     id: string;
@@ -19,6 +20,7 @@ export interface leadData {
     document: string
     is_company: boolean
     proposal: ProposalData[]
+    ref: string
 }
 
 export interface ProposalData {
@@ -31,16 +33,19 @@ export interface ProposalData {
 }
 
 export default function useAdmin() {
+    const { user } = useAdminContext()
     const [loading, setLoading] = useState(false)
     const [leads, setLeads] = useState<leadData[]>([])
 
-    const getLeads = async () => {
+    const getLeads = async (userdata: UserData) => {
+        console.log('userdata', userdata)
         setLoading(true)
         try {
-            const request = await fetch('/api/get-leads', {
+            const request = await fetch(`/api/get-leads/${userdata.username}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: `${userdata.role_admin.name}`
                 }
             })
             const response = await request.json()
@@ -52,6 +57,7 @@ export default function useAdmin() {
             setLeads(dataResponse)
             
         } catch (err) {
+            console.log(err)
             toast('Erro ao tentar carregar a lista de leads', {type: 'error'})
         } finally {
             setLoading(false)
@@ -59,8 +65,11 @@ export default function useAdmin() {
     } 
 
     useEffect(() => {
-        getLeads()
-    }, [])
+        if(user) {
+            getLeads(user)
+        }
+        
+    }, [user])
 
     return {
         leads,

@@ -106,38 +106,74 @@ const leadsService = {
             message: 'ok'
         }
     },
-    getLeads: async (): Promise<ResponseSupbase> => {
-        const { data, error } = await supabase
-        .from('leads')
-        .select(`
-          *,
-          proposal:proposal(*)
-        `);
-
-        if(error) {
+    getLeads: async (isAdmin: boolean, username: string): Promise<ResponseSupbase> => {
+        if(!isAdmin) {
+            const { data, error } = await supabase
+            .from('leads')
+            .select(`
+              *,
+              proposal:proposal(*)
+            `)
+            .eq('ref', username)
+            if(error) {
+                return {
+                    error: true,
+                    message: `Error ao buscar users admin: ${error.message}`
+                }
+            }
+    
+            const leadsWithProposalsAndUrls = data.map((lead) => ({
+                ...lead,
+                proposal: Array.isArray(lead.proposal)
+                  ? lead.proposal.map((p: ProposalData) => ({
+                      ...p,
+                      invoice_energy: p.invoice_energy ? getPublicFileUrl(p.invoice_energy) : null,
+                      social_contract: p.social_contract ? getPublicFileUrl(p.social_contract) : null,
+                      document: p.document ? getPublicFileUrl(p.document) : null,
+                    }))
+                  : [],
+              }));
+              
+    
             return {
-                error: true,
-                message: `Error ao buscar users admin: ${error.message}`
+                data: leadsWithProposalsAndUrls,
+                message: 'ok'
+            }
+        }else {
+            const { data, error } = await supabase
+            .from('leads')
+            .select(`
+              *,
+              proposal:proposal(*)
+            `)
+    
+            if(error) {
+                return {
+                    error: true,
+                    message: `Error ao buscar users admin: ${error.message}`
+                }
+            }
+    
+            const leadsWithProposalsAndUrls = data.map((lead) => ({
+                ...lead,
+                proposal: Array.isArray(lead.proposal)
+                  ? lead.proposal.map((p: ProposalData) => ({
+                      ...p,
+                      invoice_energy: p.invoice_energy ? getPublicFileUrl(p.invoice_energy) : null,
+                      social_contract: p.social_contract ? getPublicFileUrl(p.social_contract) : null,
+                      document: p.document ? getPublicFileUrl(p.document) : null,
+                    }))
+                  : [],
+              }));
+              
+    
+            return {
+                data: leadsWithProposalsAndUrls,
+                message: 'ok'
             }
         }
-
-        const leadsWithProposalsAndUrls = data.map((lead) => ({
-            ...lead,
-            proposal: Array.isArray(lead.proposal)
-              ? lead.proposal.map((p: ProposalData) => ({
-                  ...p,
-                  invoice_energy: p.invoice_energy ? getPublicFileUrl(p.invoice_energy) : null,
-                  social_contract: p.social_contract ? getPublicFileUrl(p.social_contract) : null,
-                  document: p.document ? getPublicFileUrl(p.document) : null,
-                }))
-              : [],
-          }));
-          
-
-        return {
-            data: leadsWithProposalsAndUrls,
-            message: 'ok'
-        }
+       
+       
         
     },
 

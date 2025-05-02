@@ -2,10 +2,13 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
-interface UserData {
+export interface UserData {
     id: string
-    name: string
-    role: string
+    name: string;
+    username: string;
+    role_admin: {
+      name: string
+    }
 }
 
 interface AdminContexttType {

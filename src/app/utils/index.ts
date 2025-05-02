@@ -54,3 +54,20 @@ export function formatCpfCnpj(value: string): string {
       currency: "BRL",
     });
   };
+
+
+  export function capitalizeWords(text: string): string {
+      return text
+          .toLowerCase()
+          .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+  }
+  
+  export function telwords(tel: string): string {
+      return tel
+              .replace("(", "")
+              .replace(")", "")
+              .replace("-", "")
+              .replace(" ", "")
+  }

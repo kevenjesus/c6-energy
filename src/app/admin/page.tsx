@@ -9,6 +9,7 @@ import { useAdminContext } from "../context/adminContext"
 import useAdmin from "../hooks/useAdmin"
 import { useEffect } from "react"
 import useAuth from "../hooks/useAuth"
+import { capitalizeWords, telwords } from "../utils"
 
 interface FilesLinksProps {
     isCompany: boolean;
@@ -37,28 +38,10 @@ function FileEnergyInvoice({energiy_invoice}:{energiy_invoice?: string}) {
     return ''
 }
 
-function capitalizeWords(text: string): string {
-    return text
-        .toLowerCase()
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-}
-
-function telwords(tel: string): string {
-    return tel
-            .replace("(", "")
-            .replace(")", "")
-            .replace("-", "")
-            .replace(" ", "")
-}
-
 
 export default function AdminPage() {
     const { user } = useAdminContext()
     const { leads } = useAdmin()
-    const { signOut} = useAuth()
-    
  
     return (
         <PageProtect>
@@ -66,7 +49,6 @@ export default function AdminPage() {
             <S.Container>
                 <S.Headline>
                     Olá, {user?.name}
-                    <SG.Button onClick={signOut}>Sair</SG.Button>
                 </S.Headline>
                <S.TableWrapper>
                 <S.Table>
@@ -78,15 +60,14 @@ export default function AdminPage() {
                             <S.Th>Localização</S.Th>
                             <S.Th>Desconto</S.Th>
                             <S.Th>Proposta</S.Th>
-                            <S.Th>Ref</S.Th>
-                            <S.Th>Documentos</S.Th>
+                            {user?.role_admin.name === 'admin' && <S.Th>Ref</S.Th>}
                         </tr>
                     </thead>
                     <tbody>
                         {
                             leads.length === 0 ? (
                             <tr>
-                                <S.Td colSpan={7} align="center">Nenhum lead cadastrado</S.Td>
+                                <S.Td colSpan={6} align="center">Nenhum lead cadastrado</S.Td>
                             </tr>
                             ) : (
                                 leads.map(lead => {
@@ -114,8 +95,8 @@ export default function AdminPage() {
                                         }
                                         
                                         </S.Td>
-                                    <S.Td>nada</S.Td>
-                                    <S.Td align="center">
+                                        {user?.role_admin.name === 'admin' && <S.Td>{lead.ref}</S.Td>}
+                                    {/* <S.Td align="center">
                                         {
                                            !isProposal ? '--' : (
                                             <>
@@ -129,7 +110,7 @@ export default function AdminPage() {
                                            ) 
                                         }
                                         
-                                    </S.Td>
+                                    </S.Td> */}
                                 </tr>
 })
                             

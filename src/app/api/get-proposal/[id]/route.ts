@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import leadsService from '@/app/services/leads';
 
 export async function GET(
-  req: NextRequest,
-  context: any // <- evitar o erro de build forçando tipagem solta
+  context: any
 ) {
   const { id } = context.params;
 

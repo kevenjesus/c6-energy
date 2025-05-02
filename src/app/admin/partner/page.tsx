@@ -5,7 +5,6 @@ import * as S from '../style'
 import * as SG from '@/app/styles/global'
 import Header from '@/app/components/Header'
 import Modal from '@/app/components/Modal'
-import { useState } from 'react'
 import usePartner from '@/app/hooks/usePartner'
 import useGroups from '@/app/hooks/useGroups'
 
@@ -36,6 +35,8 @@ export default function PartnerPage() {
         onOpenModalGroups, 
         onCloseModalGroups
     } = useGroups()
+
+
     return (
         <PageProtect>
             <Header />
