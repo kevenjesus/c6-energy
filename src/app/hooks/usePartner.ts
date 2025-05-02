@@ -77,6 +77,24 @@ export default function usePartner() {
         }
     }
 
+    const checkUserName = async () => {
+        const request = await fetch('/api/partner/check-username', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username: formDataPartner.username})
+        })
+        const response = await request.json()
+        if(response.error) {
+            toast('Erro ao criar parceiro(a). tente novamente', {type: 'error'})
+            return false
+        }else if(response.data) {
+            toast('username já existe na base de dados. Tente outro', {type: 'error'})
+            return true
+        }
+    }
+
     const updateUserData = async () => {
         const data: any = {
             id: partner?.id,
@@ -143,6 +161,11 @@ export default function usePartner() {
         }
         if(!formDataPartner.telefone.length) {
             toast('Preencha o campo telefone', {type: 'warning'})
+            return;
+        }
+
+        const check = await checkUserName()
+        if(check) {
             return;
         }
        
