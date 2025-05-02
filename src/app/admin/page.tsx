@@ -59,6 +59,7 @@ export default function AdminPage() {
                             <S.Th>Email</S.Th>
                             <S.Th>Localização</S.Th>
                             <S.Th>Desconto</S.Th>
+                            <S.Th>Valor da conta</S.Th>
                             <S.Th>Proposta</S.Th>
                             {user?.role_admin.name === 'admin' && <S.Th>Ref</S.Th>}
                         </tr>
@@ -87,6 +88,7 @@ export default function AdminPage() {
                                     </S.Td>
                                     <S.Td align="center">{`${lead.city}/${lead.state}`}</S.Td>
                                     <S.Td align="center">{lead.discount}</S.Td>
+                                    <S.Td align="center">{lead.energy_value}</S.Td>
                                     <S.Td align="center">
                                         {
                                             !isProposal ? '--' : (
