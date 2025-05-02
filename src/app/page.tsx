@@ -356,6 +356,7 @@ export interface FormData {
   distribuidora: string;
   valor: string;
   desconto?: string
+  ref?: string
 }
 
 
@@ -624,6 +625,7 @@ function RenderForms({valorDesconto, goToWhatsApp, goToPdf, desconto, withPdf, h
 
 export default function Home() {
   const [desconto, setDesconto] = useState(0)
+  const [ref, setRef] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState<FormData>({
     nome: "",
@@ -710,6 +712,7 @@ export default function Home() {
         value: formData.valor,
         distribuidora: formData.distribuidora,
         discount: `${desconto}%`,
+        ref: ref
         // isOfebas: isOfebas ? isOfebas : ""
       })
       
@@ -822,10 +825,11 @@ export default function Home() {
   }
 
   useEffect(() => {
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const promo = urlParams.get('promo');
-    // const promodesconto = getDesconto(promo)
-    // setDesconto(promodesconto)
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    if(ref) {
+      setRef(ref)
+    }
     document.body.style.background = '#6800F5'
     return () => {
         document.body.style.background = '';
@@ -833,6 +837,8 @@ export default function Home() {
   }, [])
 
   const descontoText = loading ? 'Simulando...' : 'Ver meu desconto agora'
+
+  console.log('ref', ref)
 
   return (
     <>

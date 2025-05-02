@@ -89,7 +89,8 @@ const leadsService = {
                 city: dataForm.cidade,
                 energy_value: dataForm.valor,
                 energy_company: dataForm.distribuidora,
-                discount: dataForm.desconto
+                discount: dataForm.desconto,
+                ref: dataForm.ref
             }
         ])
         .select()
