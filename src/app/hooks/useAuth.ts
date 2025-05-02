@@ -63,8 +63,9 @@ export default function useAuth() {
     } 
 
     const signOut = () => {
+        handleUser(null)
         localStorage.removeItem("authted")
-        route.push('/admin/login')
+        window.location.href="/admin/login"
     }
     
     const onSubmit = (event: React.FormEvent) => {

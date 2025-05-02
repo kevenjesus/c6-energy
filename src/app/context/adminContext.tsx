@@ -13,7 +13,7 @@ export interface UserData {
 
 interface AdminContexttType {
   user: UserData | null;
-  handleUser: (user: UserData) => void;
+  handleUser: (user: UserData | null) => void;
 }
 
 const AdminContextt = createContext<AdminContexttType | undefined>(undefined);
