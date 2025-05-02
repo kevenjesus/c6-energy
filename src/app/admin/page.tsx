@@ -68,7 +68,7 @@ export default function AdminPage() {
                     Olá, {user?.name}
                     <SG.Button onClick={signOut}>Sair</SG.Button>
                 </S.Headline>
-               
+               <S.TableWrapper>
                 <S.Table>
                     <thead>
                         <tr>
@@ -139,6 +139,7 @@ export default function AdminPage() {
                         
                     </tbody>
                 </S.Table>
+                </S.TableWrapper>
             </S.Container>
         </PageProtect>
     )

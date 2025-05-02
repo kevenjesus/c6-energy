@@ -15,10 +15,15 @@ export const Modal = styled.div`
 `
 
 export const ModalContent = styled.div`
-    width: 700px;
+    width: 100%;
     padding: 20px;
     border-radius: 10px;
     background-color: #fff;
+    margin: 0 15px;
+    @media (min-width: 768px) {
+        width: 700px; 
+        margin: 0;
+    }
 `
 
 export const ModalHeader = styled.div`

@@ -8,8 +8,14 @@ export const Container = styled.div`
     margin: 100px auto;
 `
 
+export const TableWrapper = styled.div`
+  overflow-x: auto;
+  max-width: 100%;
+`;
+
 export const Table = styled.table`
     width: 100%;
+    min-width: 600px;
 `
 
 export const Th = styled.th`
@@ -37,6 +43,11 @@ export const Headline = styled.h2`
     align-items: center;
     justify-content: space-between;
     font-family: "Manrope", sans-serif;
+    flex-direction: column;
+    gap: 15px;
+    @media (min-width: 1200px) {
+        flex-direction: row;
+    }
 `
 
 export const HeadlineActions = styled.div`

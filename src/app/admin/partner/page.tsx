@@ -45,36 +45,38 @@ export default function PartnerPage() {
                     <SG.Button type='submit'>Salvar</SG.Button>
                 </S.FormGroup>
                 <S.ListModal>
-                <S.Table>
-                    <thead>
-                        <tr>
-                            <S.Th>Grupo</S.Th>
-                            <S.Th>Ações</S.Th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        groups.length === 0 && <tr><S.Td colSpan={2}>Nenhum grupo cadastrado</S.Td></tr>
-                    }
-                        {
-                            groups.map(group => {
-                                return (
-                                    <tr key={group.id}>
-                                        <S.Td>{group.name}</S.Td>
-                                        <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
-                                            <SG.Button onClick={() => onEditGroup(group)} size='small' theme='secondary'>
-                                                <img width={16} src='/icon-edit.png' alt='' />
-                                            </SG.Button>
-                                            <SG.Button onClick={() => onDeleteGroup(group)} size='small' theme='secondary'>
-                                                <img width={16} src='/icon-trash.png' alt='' />
-                                            </SG.Button>
-                                        </S.Td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </S.Table>    
+                    <S.TableWrapper>
+                        <S.Table>
+                            <thead>
+                                <tr>
+                                    <S.Th>Grupo</S.Th>
+                                    <S.Th>Ações</S.Th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                groups.length === 0 && <tr><S.Td colSpan={2}>Nenhum grupo cadastrado</S.Td></tr>
+                            }
+                                {
+                                    groups.map(group => {
+                                        return (
+                                            <tr key={group.id}>
+                                                <S.Td>{group.name}</S.Td>
+                                                <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
+                                                    <SG.Button onClick={() => onEditGroup(group)} size='small' theme='secondary'>
+                                                        <img width={16} src='/icon-edit.png' alt='' />
+                                                    </SG.Button>
+                                                    <SG.Button onClick={() => onDeleteGroup(group)} size='small' theme='secondary'>
+                                                        <img width={16} src='/icon-trash.png' alt='' />
+                                                    </SG.Button>
+                                                </S.Td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </S.Table>    
+                    </S.TableWrapper>
                 </S.ListModal>
             </Modal>
 
@@ -105,45 +107,47 @@ export default function PartnerPage() {
                         <SG.Button theme='secondary' onClick={onOpenModalGroups}>Grupos</SG.Button>
                     </S.HeadlineActions>
                 </S.Headline>
-                <S.Table>
-                <thead>
-                    <tr>
-                        <S.Th>Nome</S.Th>
-                        <S.Th>Telefone</S.Th>
-                        <S.Th>Grupo</S.Th>
-                        <S.Th>Username</S.Th>
-                        <S.Th>Ações</S.Th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        partners.length === 0 && <tr><S.Td colSpan={5}>Nenhum vendedor(a) cadastrado</S.Td></tr>
-                    }
-                    {
-                        partners.map(partner => {
-                            return (
-                                <tr key={partner.id}>
-                                    <S.Td>{partner.name}</S.Td>
-                                    <S.Td align='center'>{partner.telefone}</S.Td>
-                                    <S.Td>{partner.partner_group.name}</S.Td>
-                                    <S.Td>{partner.username}</S.Td>
-                                    <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
-                                    <   SG.Button title='Copiar link do vendedor' onClick={() => handleCopy(partner)} size='small' theme='secondary'>
-                                            <img width={16} src='/icon-link.png' alt='' />
-                                        </SG.Button>
-                                        <SG.Button onClick={() => onEditUser(partner)} size='small' theme='secondary'>
-                                            <img width={16} src='/icon-edit.png' alt='' />
-                                        </SG.Button>
-                                        <SG.Button onClick={() => onDeleteUser(partner)} size='small' theme='secondary'>
-                                            <img width={16} src='/icon-trash.png' alt='' />
-                                        </SG.Button>
-                                    </S.Td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-                </S.Table>
+                <S.TableWrapper>
+                    <S.Table>
+                    <thead>
+                        <tr>
+                            <S.Th>Nome</S.Th>
+                            <S.Th>Telefone</S.Th>
+                            <S.Th>Grupo</S.Th>
+                            <S.Th>Username</S.Th>
+                            <S.Th>Ações</S.Th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            partners.length === 0 && <tr><S.Td colSpan={5}>Nenhum vendedor(a) cadastrado</S.Td></tr>
+                        }
+                        {
+                            partners.map(partner => {
+                                return (
+                                    <tr key={partner.id}>
+                                        <S.Td>{partner.name}</S.Td>
+                                        <S.Td align='center'>{partner.telefone}</S.Td>
+                                        <S.Td>{partner.partner_group.name}</S.Td>
+                                        <S.Td>{partner.username}</S.Td>
+                                        <S.Td align='center' style={{display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center'}}>
+                                        <   SG.Button title='Copiar link do vendedor' onClick={() => handleCopy(partner)} size='small' theme='secondary'>
+                                                <img width={16} src='/icon-link.png' alt='' />
+                                            </SG.Button>
+                                            <SG.Button onClick={() => onEditUser(partner)} size='small' theme='secondary'>
+                                                <img width={16} src='/icon-edit.png' alt='' />
+                                            </SG.Button>
+                                            <SG.Button onClick={() => onDeleteUser(partner)} size='small' theme='secondary'>
+                                                <img width={16} src='/icon-trash.png' alt='' />
+                                            </SG.Button>
+                                        </S.Td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                    </S.Table>
+                </S.TableWrapper>
             </S.Container>
         </PageProtect>
     )
