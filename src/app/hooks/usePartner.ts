@@ -70,6 +70,7 @@ export default function usePartner() {
             })
             const response = await request.json()
             setPartners(prevState => [...prevState, response.data[0]])
+            onCloseModalPartner()
             toast('Novo parceiro(a) criado com sucesso', {type: 'success'})
         } catch (err) {
             toast('Erro ao criar parceiro(a). tente novamente', {type: 'error'})

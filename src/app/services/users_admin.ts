@@ -27,7 +27,7 @@ const UsersAdmin = {
         let { data, error } = await supabase
         .from('users_admin')
         .insert({...dataUser, role: partnerGuid})
-        .select()
+        .select('id, name, role_admin: role(name), username, partner_group: group(id, name), telefone')
         if(error) {
             return {
                 error: true,
