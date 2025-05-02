@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { PartnerGroup, userAdminData, userAdminFormData, userAdminfrontData } from "../services/types"
 import { toast } from "react-toastify"
-import { formatPhoneNumber } from "../page"
 import { group } from "console"
+import { formatPhoneNumber } from "../utils"
 
 type ModPartnerType = 'Novo vendedor(a)' | 'Alterar vendedor(a)'
 const formDataPartnerDefault: userAdminFormData = {
