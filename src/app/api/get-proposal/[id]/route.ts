@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import leadsService from '@/app/services/leads';
 
 export async function GET(
-  context: any
+  _req: Request,
+  { params }: any
 ) {
-  const { id } = context.params;
+  const { id } = params;
 
   const { getLead } = leadsService;
   const proposal = await getLead(id);
