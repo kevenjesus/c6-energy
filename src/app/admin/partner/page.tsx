@@ -82,6 +82,7 @@ export default function PartnerPage() {
             </Modal>
 
             <Modal open={openModalPartners} idAction='form-patner' title={modParther} onClose={onCloseModalPartner} onAction={() => undefined}>
+            <S.ListModal>
                 <form method='post' onSubmit={onSubmitPartner} action="#" id='form-patner'>
                     <S.Input type='text' value={formDataPartner.name} onChange={handleChangePartner} required name='name' placeholder='Nome do vendedor *' />
                     <S.Input type='text' value={formDataPartner.telefone} onChange={handleChangePartner} required name='telefone' placeholder='(00) 00000-0000 *' />
@@ -99,6 +100,7 @@ export default function PartnerPage() {
                     <S.Input type='password' value={formDataPartner.password} onChange={handleChangePartner} required={partner === null} name='password' placeholder='senha *' />
                     <S.Input type='password' value={formDataPartner.repassword} onChange={handleChangePartner} required={partner === null} name='repassword' placeholder='Confirmar senha *' />
                 </form> 
+                </S.ListModal>
             </Modal>
             <S.Container>
                 <S.Headline>
