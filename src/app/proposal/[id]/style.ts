@@ -250,8 +250,11 @@ export const FooterTop = styled.div`
     align-items: center;
     justify-content: center;
     margin-left: auto;
-    width: 450px;
+    width: 100%;
+    padding-left: 5px;
     @media (min-width: 1200px) {
+        width: 450px;
+        padding-left: 0;
         flex-direction: row;
         justify-content: flex-start;
     }
