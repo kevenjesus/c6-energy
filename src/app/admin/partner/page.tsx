@@ -40,7 +40,7 @@ export default function PartnerPage() {
     return (
         <PageProtect>
             <Header />
-            <Modal open={openModalGrupos} title="Grupos" onClose={onCloseModalGroups} onAction={() => undefined}>
+            <Modal open={openModalGrupos} title="Grupos" onClose={onCloseModalGroups}>
                 <S.FormGroup onSubmit={onSubmitGroup} id='form-grupo'>
                     <S.Input type='text' required value={groupField} onChange={onChangeGroupField} name='name' placeholder='Nome do grupo' />
                     <SG.Button type='submit'>Salvar</SG.Button>

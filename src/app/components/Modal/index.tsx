@@ -7,7 +7,7 @@ interface ModalProps {
     title: string
     children: ReactNode
     onClose: () => void
-    onAction: () => void
+    onAction?: () => void
     actionText?: string
     idAction?: string
 }
@@ -32,7 +32,7 @@ export default function Modal({open, title, children, actionText = 'salvar', idA
                 </S.ModalHeader>
                 <S.ModalBody>{children}</S.ModalBody>
                 <S.ModalFooter>
-                    <SG.Button type='submit' onClick={onAction} form={idAction}>{actionText}</SG.Button>
+                    {onAction && <SG.Button type='submit' onClick={onAction} form={idAction}>{actionText}</SG.Button>}
                     <SG.Button theme='secondary' onClick={() => onClose()}>Fechar</SG.Button>
                 </S.ModalFooter>
             </S.ModalContent>
