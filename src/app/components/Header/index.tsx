@@ -17,8 +17,6 @@ export default function Header() {
                         {user?.role_admin.name === 'admin' &&<S.MenuItem onClick={() => router.push('/admin/partner')}>Vendedores</S.MenuItem>}
                         {user && <S.MenuItem onClick={() => signOut()}>Sair</S.MenuItem>}
                     </S.Menu>
-                
-            
         </S.Header>
     )
 }

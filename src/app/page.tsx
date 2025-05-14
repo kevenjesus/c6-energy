@@ -453,7 +453,7 @@ const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
 
         <S.Col6>
           <S.Select name="estado" id="estado" required value={formData.estado} onChange={handle}>
-            <option>Selecione seu estado</option>
+            <option value="">Selecione seu estado</option>
             {
               estados.map(estado => (
                 <option key={estado.sigla}>{estado.sigla}</option>
@@ -468,7 +468,7 @@ const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
 
         <S.Col12>
         <S.Select name="distribuidora" id="distribuidora" required value={formData.distribuidora} onChange={handleChange}>
-            <option>Selecione a distribuidora</option>
+            <option value="">Selecione a distribuidora</option>
             {
               estadoSelectedIndex >= 0 && estados[estadoSelectedIndex].distribuidoras.map(dis => (
                 <option key={dis.nome}>{dis.nome}</option>

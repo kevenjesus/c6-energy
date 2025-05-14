@@ -68,6 +68,23 @@ export const SubHeading = styled.h2`
     border-radius: 10px;
     width: 300px;
     margin: -20px auto;
+    text-align: center;
+`
+
+export const Input = styled.input`
+    width: 100%;
+    background-color: #d0cece;
+    border-width: 0px 0px 0px 0px;
+    border-radius: 15px 15px 15px 15px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #000;
+    padding: 16px 23px 16px 23px;
+    outline: none;
+    margin-bottom: 15px;
+    &::placeholder {
+        color: #000
+    }
 `
 
 export const Container = styled.div`
