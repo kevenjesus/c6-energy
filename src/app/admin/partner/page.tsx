@@ -87,7 +87,7 @@ export default function PartnerPage() {
                     <S.Input type='text' value={formDataPartner.name} onChange={handleChangePartner} required name='name' placeholder='Nome do vendedor *' />
                     <S.Input type='text' value={formDataPartner.telefone} onChange={handleChangePartner} required name='telefone' placeholder='(00) 00000-0000 *' />
                     <S.Select name='group' required value={formDataPartner.group} onChange={handleChangePartner}>
-                        <option>selecione um grupo *</option>
+                        <option value="">selecione um grupo *</option>
                         {
                             groups.map(group => {
                                 return (
