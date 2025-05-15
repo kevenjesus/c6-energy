@@ -206,7 +206,7 @@ export default function ProposalPage() {
                 </S.SeloContainer>
                 <S.COntainerBtn pdf={renderPdf.toString()}>
                     <SG.Button onClick={handlePdf}>Baixar em PDF</SG.Button>
-                    <SG.Button theme='secondary' onClick={() => goToContract(proposal.id)}>Gerar contrato</SG.Button>
+                    {/* <SG.Button theme='secondary' onClick={() => goToContract(proposal.id)}>Gerar contrato</SG.Button> */}
                 </S.COntainerBtn>
             </S.Container>
             <S.Footer>
