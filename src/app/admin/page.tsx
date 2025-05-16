@@ -68,7 +68,7 @@ export default function AdminPage() {
                         {
                             leads.length === 0 ? (
                             <tr>
-                                <S.Td colSpan={6} align="center">Nenhum lead cadastrado</S.Td>
+                                <S.Td colSpan={user?.role_admin.name === 'admin' ? 8 : 7} align="center">Nenhum lead cadastrado</S.Td>
                             </tr>
                             ) : (
                                 leads.map(lead => {
