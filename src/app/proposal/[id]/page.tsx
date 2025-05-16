@@ -138,8 +138,8 @@ export default function ProposalPage() {
                     <S.Card>
                         <p>SIMULAÇÃO: PROPOSTA {proposal.id.slice(0, 7).toUpperCase()}</p>
                         <p>NOME: {proposal.user.name}</p>
-                        <p>CPF/CNPJ: {proposal.user.document}</p>
-                        <p>ENDEREÇO: {`${proposal.user.address}, ${proposal.user.number}, ${proposal.user.complement} - ${proposal.user.city}/${proposal.user.state} CEP ${proposal.user.zipcode}`}</p>
+                        {proposal.user.document && <p>CPF/CNPJ: {proposal.user.document}</p>}
+                        {proposal.user.address && <p>ENDEREÇO: {`${proposal.user.address}, ${proposal.user.number}, ${proposal.user.complement} - ${proposal.user.city}/${proposal.user.state} CEP ${proposal.user.zipcode}`}</p>}
                     </S.Card>
                     <S.Card>
                         <p>UNIDADE DISTRIBUIDORA:</p>

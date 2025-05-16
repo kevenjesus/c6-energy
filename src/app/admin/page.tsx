@@ -84,7 +84,7 @@ export default function AdminPage() {
                                         <Link target="_blank" href={`https://wa.me/+55${telwords(lead.whatsapp)}`}>{lead.whatsapp}</Link>
                                     </S.Td>
                                     <S.Td>
-                                        <Link target="_blank" href={`mailto:${lead.email.toLowerCase()}`}>{lead.email.toLowerCase()}</Link>
+                                        {lead.email && <Link target="_blank" href={`mailto:${lead.email.toLowerCase()}`}>{lead.email.toLowerCase()}</Link>}
                                     </S.Td>
                                     <S.Td align="center">{`${lead.city}/${lead.state}`}</S.Td>
                                     <S.Td align="center">{lead.discount}</S.Td>

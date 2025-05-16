@@ -61,7 +61,7 @@ export default function ContractPage() {
     const router = useRouter()
 
     if(loading) {
-        return <Loading headline="Carregando proposta..." />
+        return <Loading headline="Carregando proposta para contrato..." />
     }
 
     if(!proposal) {
@@ -113,9 +113,38 @@ export default function ContractPage() {
                     <p>São Paulo, SP</p>
                 </S.HeadingContact>
             </S.Header>
-            <S.SubHeading>Contrato</S.SubHeading>
+            <S.SubHeading>Preencher proposta</S.SubHeading>
             <S.Container>
-                <S.Input type="text" placeholder="cpf" />
+                <form>
+                <S.FormControl>
+                    <S.Label>Dados pessoais</S.Label>
+                    <S.Input type="text" placeholder="nome" />
+                    <S.Input type="text" placeholder="whatsapp" />
+                    <S.Input type="text" placeholder="email" />
+                    <S.Input type="text" placeholder="email" />
+                </S.FormControl>
+                <S.FormControl>
+                    <S.Label>Endereço</S.Label>
+                    <S.Input type="text" placeholder="cep" />
+                    <S.Input type="text" placeholder="logradouro" />
+                    <S.Input type="text" placeholder="numero" />
+                    <S.Input type="text" placeholder="bairro" />
+                    <S.Input type="text" placeholder="cidade" />
+                    <S.Input type="text" placeholder="estado" />
+                    <S.Input type="text" placeholder="complemento" />
+                </S.FormControl>
+                <S.FormControl>
+                    <S.Label>Anexos principais</S.Label>
+                    <S.Input type="text" placeholder="email" />
+                    <S.Input type="text" placeholder="CPF" />
+                </S.FormControl>
+                <S.FormControl>
+                    <S.Label>Anexos complementares</S.Label>
+                    <S.Input type="text" placeholder="email" />
+                    <S.Input type="text" placeholder="CPF" />
+                </S.FormControl>
+                <SG.Button>Enviar</SG.Button>
+                </form>
             </S.Container>
             <S.Footer>
                 <S.Container>

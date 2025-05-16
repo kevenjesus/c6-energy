@@ -98,6 +98,18 @@ export const Container = styled.div`
     }
 `
 
+export const FormControl = styled.div`
+    margin-bottom: 30px;
+`
+export const Label = styled.label`
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 20px;
+    color: #6900F7;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: block;
+`
+
 export const Features = styled.div`
     display: flex;
     gap: 20px;
@@ -248,6 +260,7 @@ export const ListBenefitsItem = styled.div`
 export const Footer = styled.footer`
     width: 100%;
     background-color: #6900F7;
+    margin-top: 50px;
     > div {
         display: flex;
         align-items: flex-start;
