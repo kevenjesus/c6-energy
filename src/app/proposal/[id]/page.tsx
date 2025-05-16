@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 
 function calcularImpactoAmbiental(valorContaMensal: number) {
-    const precoPorKWh = 0.90; // R$/kWh
+    const precoPorKWh = 0.89; // R$/kWh
     const emissaoCO2PorKWh = 0.40; // kg de CO₂ por kWh
     const kgCO2PorArvore = 20;
   

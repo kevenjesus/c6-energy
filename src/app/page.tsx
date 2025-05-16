@@ -350,9 +350,9 @@ function buscarDesconto(nome: string, valor: number, descontoPadrao: string): st
 export interface FormData {
   nome: string;
   whatsapp: string;
-  email: string;
+  email?: string;
   estado: string;
-  cidade: string;
+  cidade?: string;
   distribuidora: string;
   valor: string;
   desconto?: string
@@ -360,29 +360,6 @@ export interface FormData {
 }
 
 
-export interface Form2DataUser {
-  id: string;
-  zipcode: string;
-  address: string;
-  number: string;
-  complement: string;
-  neighborhood: string;
-  is_company: string;
-  document: string;
-}
-export interface Form2Data {
-  id?: string;
-  zipcode: string;
-  address: string;
-  number: string;
-  complement: string;
-  neighborhood: string;
-  is_company: string;
-  document: string;
-  invoice_energy: File | null;
-  social_contract: File | null;
-  document_file: File | null;
-}
 
 interface FormProps {
   formData: FormData
@@ -391,35 +368,29 @@ interface FormProps {
   descontoText: string
 }
 
-interface Form2Props {
-  formData: Form2Data
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  loading: boolean;
-}
-
 interface ResponseProps {
   desconto: number
   valorDesconto: string | number
-  goToWhatsApp: () => void
-  goToPdf: () => void
+  valorDescontoMes: string | number
+  goToProposal: () => void
+  goToContract: () => void
 }
 
-const Response = ({desconto, valorDesconto, goToWhatsApp, goToPdf}: ResponseProps) => {
+const Response = ({desconto, valorDesconto, valorDescontoMes, goToProposal, goToContract}: ResponseProps) => {
+
   return (
     <S.ContainerResponse>
-      <S.Titulo>
-        Você <S.Selecionado>economizará {desconto}% </S.Selecionado> em um ano, totalizando <br/> <S.Selecionado>{valorDesconto}</S.Selecionado> de desconto!
+      <S.Titulo style={{fontSize: '43px'}}>
+        Você <S.Selecionado>economizará {desconto}% </S.Selecionado> ao mês, no valor de <S.Selecionado>{valorDescontoMes}</S.Selecionado>, totalizando <S.Selecionado>{valorDesconto}</S.Selecionado> ao ano de desconto.
       </S.Titulo>
       <S.CompanyDescription>O valor estimado é baseado na Geração Distribuída. Para o mercado livre de energia (alta tensão), o desconto pode chegar a 35%.</S.CompanyDescription>
-      <S.Label>Recebemos sua mensagem, um de nossos consultores entrará em contato com você o mais rápido possível.</S.Label>
-      <div style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-      <S.Button type="button" onClick={goToWhatsApp} style={{border: '2px solid #FF5E00', background: 'transparent'}}>
-        <img src="/whatsapp.svg" alt="" />
-         entrar em contato agora
-      </S.Button>
-      <S.Button type="button" onClick={goToPdf}>
-         Continuar simulação em PDF
-      </S.Button>
+      <div style={{display: 'flex', width: '100%', gap: 20}}>
+        <S.Button type="button" onClick={goToProposal} style={{border: '2px solid #FF5E00', background: 'transparent'}}>
+          Simulação em PDF
+        </S.Button>
+        <S.Button type="button" onClick={goToContract}>
+          Preencher Proposta
+        </S.Button>
       </div>
     </S.ContainerResponse>
   )
@@ -447,9 +418,9 @@ const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
           <S.Input type="text" name="whatsapp" required placeholder="Digite seu whatsapp" maxLength={15} value={formData.whatsapp} onChange={handleChange} />
         </S.Col6>
 
-        <S.Col12>
+        {/* <S.Col12>
           <S.Input type="email" name="email" required placeholder="Digite seu melhor email" value={formData.email} onChange={handleChange} />
-        </S.Col12>
+        </S.Col12> */}
 
         <S.Col6>
           <S.Select name="estado" id="estado" required value={formData.estado} onChange={handle}>
@@ -462,11 +433,11 @@ const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
           </S.Select>
         </S.Col6>
 
-        <S.Col6>
+        {/* <S.Col6>
           <S.Input type="text" name="cidade" required placeholder="Sua cidade" value={formData.cidade} onChange={handleChange} />
-        </S.Col6>
+        </S.Col6> */}
 
-        <S.Col12>
+        <S.Col6>
         <S.Select name="distribuidora" id="distribuidora" required value={formData.distribuidora} onChange={handleChange}>
             <option value="">Selecione a distribuidora</option>
             {
@@ -475,7 +446,7 @@ const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
               ))
             }
           </S.Select>
-        </S.Col12>
+        </S.Col6>
         
         <S.Col12 style={{marginTop: 20}}>
           <S.Label>Qual o valor médio da sua conta de luz por mês?</S.Label>
@@ -492,122 +463,30 @@ const Form = ({formData, handleChange, loading, descontoText}: FormProps) => {
   )
 }
 
-const Form2 = ({formData, handleChange, loading}: Form2Props) => {
-
-  const checkCEP = async () => {
-    await fetch(`https://viacep.com.br/ws/${formData.zipcode}/json/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-    .then(response => {
-      return response.json()
-    })
-    .then(response => {
-      const fakeEventAddress = {
-        target: {
-          name: 'address',
-          value: response.logradouro,
-        },
-      } as React.ChangeEvent<HTMLInputElement>;
-      const fakeEventNeighborhood = {
-        target: {
-          name: 'neighborhood',
-          value: response.bairro,
-        },
-      } as React.ChangeEvent<HTMLInputElement>;
-      
-      handleChange(fakeEventAddress)
-      handleChange(fakeEventNeighborhood)
-    })
-  }
-
-  useEffect(() => {
-    if(formData.zipcode.length === 8) {
-      checkCEP()
-    }
-  }, [formData.zipcode])
-
-  const textBtn = loading ? 'Aguarde...' : 'Ver proposta'
-
-
-  return (
-    <>
-      <S.Titulo><S.Selecionado>Simule agora</S.Selecionado> e veja quanto você pode economizar</S.Titulo>
-      <br />
-      <S.FormFields>
-        <S.Col12>
-          <div style={{display: 'flex', gap: 20}}>
-          <S.Label style={{fontSize: 16}}>
-            <input type="radio" name="is_company" checked={formData.is_company === 'is_personal'} value={"is_personal"} onChange={handleChange} /> Pessoa fisica
-          </S.Label>
-          <S.Label style={{fontSize: 16}}>
-            <input type="radio" name="is_company" checked={formData.is_company === 'is_company'} value={"is_company"} onChange={handleChange} /> Pessoa juridica
-          </S.Label>
-          </div>
-        </S.Col12>
-        <S.Col12>
-          <S.Input type="text" name="document" required value={formData.document} placeholder={formData.is_company === 'is_personal' ? 'Digite seu CPF' : 'Digite seu CNPJ'} onChange={handleChange} />
-        </S.Col12>
-        <S.Col6>
-          <S.Input type="number" name="zipcode" required placeholder="Digite seu CEP" value={formData.zipcode} onChange={handleChange} />
-        </S.Col6>
-
-        <S.Col6>
-          <S.Input type="text" readOnly name="address" placeholder="Logradouro" value={formData.address} />
-        </S.Col6>
-
-        <S.Col6>
-          <S.Input type="text" name="number" placeholder="Digite o numero" value={formData.number} onChange={handleChange} />
-        </S.Col6>
-
-        <S.Col6>
-          <S.Input type="text" name="complement" placeholder="Complemento" value={formData.complement} onChange={handleChange} />
-        </S.Col6>
-        <S.Col12>
-          <S.Input type="text" name="neighborhood" readOnly placeholder="Bairro" value={formData.neighborhood} />
-        </S.Col12>
-        
-        {/* <S.Col6>
-          <S.Label style={{fontSize: 16}}>Anexar conta de energia</S.Label>
-          <S.Input type="file" name="invoice_energy" required style={{width: '100%'}} onChange={handleChange} />
-        </S.Col6>
-        <S.Col6>
-          <S.Label style={{fontSize: 16}}>Anexar {formData.is_company === 'is_personal' ? 'RG ou CNH' : 'Contrato Social'}</S.Label>
-          <S.Input type="file" name="document_file" required style={{width: '100%'}} onChange={handleChange} />
-        </S.Col6> */}
-
-        <S.Col12>
-          <S.Button type="submit" style={{width: '230px'}}>
-            {textBtn}
-            <img src="/icon.svg" alt="" />
-          </S.Button>
-          </S.Col12>
-      </S.FormFields>
-    </>
-  )
-}
 
 interface RenderFormsProps {
   desconto: number
   valorDesconto: string | number
+  valorDescontoMes: string | number
   loading: boolean
   formData: FormData
-  form2Data: Form2Data
   descontoText: string
-  goToWhatsApp: () => void
-  goToPdf: () => void
-  withPdf: boolean
-  handleChange2: (event: React.ChangeEvent<HTMLInputElement>) => void
+  goToProposal: () => void
+  goToContract: () => void
   handleChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
 }
 
-function RenderForms({valorDesconto, goToWhatsApp, goToPdf, desconto, withPdf, handleChange2, handleChange, loading, formData, form2Data, descontoText}: RenderFormsProps) {
-  if(withPdf) {
-    return <Form2 formData={form2Data} handleChange={handleChange2} loading={loading} />
-  }
-  if(valorDesconto) {
+function RenderForms({
+    valorDesconto, 
+    valorDescontoMes, 
+    goToProposal, 
+    goToContract,
+    handleChange, 
+    loading, 
+    formData, 
+    descontoText,
+  }: RenderFormsProps) {
+  if(valorDesconto && valorDescontoMes) {
       const estadoValue = document.querySelector("#estado") as HTMLInputElement
       const distribuidoraValue = document.querySelector("#distribuidora") as HTMLInputElement
       const estado = estados.findIndex(e => e.sigla === estadoValue.value)
@@ -616,7 +495,7 @@ function RenderForms({valorDesconto, goToWhatsApp, goToPdf, desconto, withPdf, h
       const valorForNumber = converterParaFloat(formData.valor)
       const descontoAplicado = buscarDesconto(distribuidoraData.nome, valorForNumber, distribuidoraData.desconto)
       const descontoFormat = Number(descontoAplicado.replace("%", ""))
-    return <Response goToWhatsApp={goToWhatsApp} goToPdf={goToPdf} desconto={descontoFormat} valorDesconto={valorDesconto} />
+    return <Response goToProposal={goToProposal} goToContract={goToContract} desconto={descontoFormat} valorDesconto={valorDesconto} valorDescontoMes={valorDescontoMes} />
   }
   
   return <Form descontoText={descontoText} loading={loading} handleChange={handleChange} formData={formData} />
@@ -636,26 +515,12 @@ export default function Home() {
     distribuidora: "",
     valor: "",
   });
-  const [form2Data, setForm2Data] = useState<Form2Data>({
-    zipcode: "",
-    address: "",
-    number: "",
-    complement: "",
-    neighborhood: "",
-    document: "",
-    is_company: 'is_personal',
-    social_contract: null,
-    invoice_energy: null,
-    document_file: null
-  });
+
   const [valorDesconto, setValorDesconto] = useState<string | number>(0)
-  const [isOfebas, setOfebas] = useState<boolean | string>(false)
-  const [withPdf, setWithPdf] = useState(false)
-  const [lead, setLead] = useState(null)
+  const [valorDescontoMes, setValorDescontoMes] = useState<string | number>(0)
+  const [proposal, setProposal] = useState<string | null>(null)
 
   const route = useRouter()
-
-  
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = event.target;
@@ -679,56 +544,29 @@ export default function Home() {
     setFormData((prev) => ({ ...prev, [name]: valueFormat }));
   }
 
-  function handleChange2(event: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value, files } = event.target as HTMLInputElement
-    let valueFormat: string | File | null = value;
-
-    if(name === 'is_company' && form2Data.is_company !== valueFormat) {
-      setForm2Data((prev) => ({ ...prev, document: '' }));
-    }
-    
-    if(name === 'document') {
-      valueFormat = formatCpfCnpj(value)
-    }
-    if(name === 'invoice_energy' || name == 'document_file') {
-      const file = files?.[0] || null;
-      valueFormat = file;
-    }
-  
-    setForm2Data((prev) => ({ ...prev, [name]: valueFormat }));
-  }
-
   async function send() {
     await fetch("/api/post-lead", {
-    // await fetch("https://script.google.com/macros/s/AKfycbw1-zsouBUbrHW7h_ihqNiXH4gFb-Da-mE-C6elAikXT3hEs4NeSgvF7YPFiYqI_pxGpA/exec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         nome: formData.nome,
         whatsapp: formData.whatsapp,
-        email: formData.email,
         state: formData.estado,
-        city: formData.cidade,
         value: formData.valor,
         distribuidora: formData.distribuidora,
         discount: `${desconto}%`,
         ref: ref
-        // isOfebas: isOfebas ? isOfebas : ""
       })
       
     })
     .then(response => {
       return response.json()
     })
-    .then(response => {
-      setLead(response.data.id)
-    })
-    .finally(() => {
+    .then((response) => {
       const valorForNumber = converterParaFloat(formData.valor);
 
-      const estadoValue = document.querySelector("#estado") as HTMLInputElement
       const distribuidoraValue = document.querySelector("#distribuidora") as HTMLInputElement
-      const estado = estados.findIndex(e => e.sigla === estadoValue.value)
+      const estado = estados.findIndex(e => e.sigla === formData.estado)
       const distribuidora = estados[estado].distribuidoras.findIndex(d => d.nome === distribuidoraValue.value)
       const distribuidoraData = estados[estado].distribuidoras[distribuidora]
       const descontoAplicado = buscarDesconto(distribuidoraData.nome, valorForNumber, distribuidoraData.desconto)
@@ -740,88 +578,47 @@ export default function Home() {
 
       const descontoAnual = descontoArredondado * 12; 
 
-      
-
       const totalAplicado = formatCurrency(descontoAnual.toFixed(2).replace(".", ","));
-      setValorDesconto(totalAplicado); // Define o valor formatado
+      const totalAplicadoMes = formatCurrency(descontoArredondado.toFixed(2).replace(".", ","));
+      setValorDescontoMes(totalAplicadoMes);
+      setValorDesconto(totalAplicado); 
+      setProposal(response.data.id)
+    })
+    .finally(() => {
       setLoading(false)
     });
   }
 
-  async function sendPDf() {
-    const formDataPost = new FormData()
-
-    formDataPost.append('id', lead || '')
-    formDataPost.append('document', form2Data.document)
-    formDataPost.append('zipcode', form2Data.zipcode)
-    formDataPost.append('address', form2Data.address)
-    formDataPost.append('number', form2Data.number)
-    formDataPost.append('complement', form2Data.complement)
-    formDataPost.append('neighborhood', form2Data.neighborhood)
-    formDataPost.append('is_company', form2Data.is_company !== 'is_personal' ? 'true' : 'false')
-    
-    if(form2Data.invoice_energy) formDataPost.append('invoice_energy', form2Data.invoice_energy);
-  
-    if(form2Data.document_file) formDataPost.append('document_file', form2Data.document_file);
-
-    await fetch("/api/lead-complete", {
-        method: "POST",
-        body: formDataPost
-      })
-      .then(response => {
-        return response.json()
-      })
-      .then(response => {
-        route.push(`/proposal/${response.data.id}`)
-      })
-  }
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setLoading(true)
     
     setTimeout(async () => {
-      if(withPdf) {
-        await sendPDf()
-      }else {
-        await send()
-      }
-      
+      await send()
     }, 500)
     
   }
 
   const goToWhatsApp = () => {
     const numero = "5511939080968";
-    const mensagem =  `Olá! Vim do site da C6 Energy e gostaria de saber mais sobre como economizar até ${desconto}% na minha conta de energia. Poderia me ajudar? 😊`;
+    const mensagem =  `Olá! Vim do site da C6 Energy e gostaria de saber mais sobre como economizar até ${desconto === 0 ? '35%' : desconto}% na minha conta de energia. Poderia me ajudar? 😊`;
     const mensagemCodificada = encodeURIComponent(mensagem);
     const linkWhatsApp = `https://wa.me/${numero}?text=${mensagemCodificada}`;
     window.location.href = linkWhatsApp
   }
 
-  const goToPdf = () => {
-    setWithPdf(true)
+
+  const goToProposal = () => {
+    if(proposal) {
+      route.push(`/proposal/${proposal}`)
+    }
   }
 
-  const getDesconto = (value: string | null) => {
-    const valueNumber = Number(value)
-    const descontos = [5,10,13,15,17,18,20,22,24,12.84]
-    const descontoPadrao = 24
-    const isDescontoOfebas = valueNumber === 12.84
-    const isDescontoEnel = valueNumber === 5
-    
-    if(isDescontoEnel) {
-      setOfebas('Enel')
+  const goToContract = () => {
+    if(proposal) {
+      route.push(`/contract/${proposal}`)
     }
-
-    if(isDescontoOfebas) {
-      setOfebas('ofebas')
-    }
-    
-    if(descontos.includes(valueNumber)) {
-      return valueNumber
-    }
-    return descontoPadrao
   }
 
   useEffect(() => {
@@ -838,8 +635,6 @@ export default function Home() {
 
   const descontoText = loading ? 'Simulando...' : 'Ver meu desconto agora'
 
-  console.log('ref', ref)
-
   return (
     <>
     <S.Container>
@@ -851,15 +646,13 @@ export default function Home() {
        <RenderForms 
           desconto={desconto} 
           descontoText={descontoText} 
-          form2Data={form2Data} 
           formData={formData} 
-          goToPdf={goToPdf} 
-          goToWhatsApp={goToWhatsApp} 
+          goToProposal={goToProposal}
+          goToContract={goToContract}
           handleChange={handleChange} 
-          handleChange2={handleChange2}
           loading={loading}
           valorDesconto={valorDesconto}
-          withPdf={withPdf} 
+          valorDescontoMes={valorDescontoMes}
         />
 
     </S.Form>
@@ -906,7 +699,7 @@ export default function Home() {
 
         <S.ContactItem href="https://www.google.com/search?q=C6+Energy&stick=H4sIAAAAAAAA_-NgU1I1qLA0SU41tbS0SE4xNLFMtkyxMqhItLC0SLKwsEw1MDUxMDc0WsTK6Wym4JqXWpReCQCPTM0hNQAAAA&hl=pt-BR&mat=CcR1DiCIe8IeElYBEKoLaUv3m2bPQh-hQyCrTjSLg5cmCxvKUqIEOUKjuAo-1t_7L-rpB4wEv4hfw39zpTMt-RO8WB9cukz_9jfaVfQ-pNUUxodzKLbIuzN94mDpeXcIfw&authuser=0" target="_blank">
           <img src="/email.svg" alt="" />
-          R. Maj. Quedinho, 111 - CJ. 110 - Centro Histórico de São Paulo | SP
+          R. Dr. Bráulio Gomes, 107 - 01047-020, São Paulo, SP
         </S.ContactItem>
       </S.Contact>
       </S.FooterContainer>

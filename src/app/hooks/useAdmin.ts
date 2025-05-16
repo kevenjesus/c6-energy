@@ -8,17 +8,17 @@ export interface leadData {
     whatsapp: string;
     email: string;
     state: string;
-    city: string;
-    address: string;
-    number: string;
-    zipcode: string;
-    complement: string;
-    neighborhood: string;
+    city?: string;
+    address?: string;
+    number?: string;
+    zipcode?: string;
+    complement?: string;
+    neighborhood?: string;
     energy_company: string;
     energy_value: string
     discount: string
-    document: string
-    is_company: boolean
+    document?: string
+    is_company?: boolean
     proposal: ProposalData[]
     ref: string
 }

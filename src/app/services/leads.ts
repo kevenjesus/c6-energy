@@ -1,32 +1,10 @@
 
 import supabase from "../config/supabase"
 import { ProposalData } from "../hooks/useAdmin";
-import { Form2Data, Form2DataUser, FormData } from "../page";
-import { ResponseSupbase } from "./types"
+import { FormData, ResponseSupbase } from "./types"
 
 
 const leadsService = {
-    upload: async (file: File | Blob, path: string): Promise<ResponseSupbase> => {
-        const { data, error } = await supabase
-            .storage
-            .from('documents')
-            .upload(path, file, {
-            cacheControl: '3600',
-            upsert: true,
-            });
-
-        if (error) {
-            return {
-            error: true,
-            message: `Erro no upload: ${error.message}`
-            };
-        }
-
-        return {
-            data: data.path,
-            message: 'Upload feito com sucesso'
-        };
-    },
     insertProposal: async (data: {
         user: string;
         invoice_energy?: string;
@@ -49,33 +27,6 @@ const leadsService = {
             data: result?.[0],
             message: 'Proposta criada com sucesso'
         };
-    },
-    updateLead: async (dataForm: Form2DataUser): Promise<ResponseSupbase> => {
-        const { data, error } = await supabase
-        .from('leads')
-        .update({ 
-            document: dataForm.document,
-            is_company: dataForm.is_company === 'true',
-            zipcode: dataForm.zipcode, 
-            address: dataForm.address,
-            number: dataForm.number,
-            complement: dataForm.complement,
-            neighborhood: dataForm.neighborhood,
-        })
-        .eq('id', dataForm.id)
-        .select();
-
-        if(error) {
-            return {
-                error: true,
-                message: `Error ao cadastrar um lead: ${error.message}`
-            }
-        }
-
-        return {
-            data: data,
-            message: 'ok'
-        }
     },
     postLead: async (dataForm: FormData): Promise<ResponseSupbase> => {
         const { data, error } = await supabase
@@ -116,6 +67,7 @@ const leadsService = {
               proposal:proposal(*)
             `)
             .eq('ref', username)
+            .order('created_at', { ascending: false });
             if(error) {
                 return {
                     error: true,
@@ -147,6 +99,7 @@ const leadsService = {
               *,
               proposal:proposal(*)
             `)
+            .order('created_at', { ascending: false });
     
             if(error) {
                 return {

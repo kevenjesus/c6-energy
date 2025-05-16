@@ -74,3 +74,14 @@ export type PartnerGroup = {
     };
   };
   
+  export interface FormData {
+  nome: string;
+  whatsapp: string;
+  email?: string;
+  estado: string;
+  cidade?: string;
+  distribuidora: string;
+  valor: string;
+  desconto?: string
+  ref?: string
+}
