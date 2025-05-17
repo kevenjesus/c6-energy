@@ -1,10 +1,72 @@
 
 import supabase from "../config/supabase"
 import { ProposalData } from "../hooks/useAdmin";
-import { FormData, ResponseSupbase } from "./types"
+import { DataLead, FormData, ResponseSupbase } from "./types"
 
 
 const leadsService = {
+    updateLead: async ({
+        id,
+        name, 
+        whatsapp, 
+        email, 
+        document,
+        marital_status,
+        profession,
+        is_company,
+        responsable_name,
+        responsable_phone,
+        responsable_document,
+        responsable_marital_status,
+        responsable_professional,
+        uc,
+        zipcode,
+        address,
+        number,
+        neighborhood,
+        state,
+        city,
+        complement
+    }: DataLead) => {
+        const { data: result, error } = await supabase
+        .from('leads')
+        .update({
+            name, 
+            whatsapp, 
+            email, 
+            document,
+            marital_status,
+            profession,
+            is_company,
+            responsable_name,
+            responsable_phone,
+            responsable_document,
+            responsable_marital_status,
+            responsable_professional,
+            uc,
+            zipcode,
+            address,
+            number,
+            neighborhood,
+            state,
+            city,
+            complement
+        })
+        .eq('id', id)
+        .select();
+
+         if (error) {
+            return {
+                error: true,
+                message: `Erro ao atualizar lead: ${error.message}`
+            };
+        }
+
+        return {
+            data: result?.[0],
+            message: 'Lead atualizado com sucesso'
+        };
+    },
     insertProposal: async (data: {
         user: string;
         invoice_energy?: string;
@@ -17,10 +79,10 @@ const leadsService = {
         .select();
     
         if (error) {
-        return {
-            error: true,
-            message: `Erro ao criar proposta: ${error.message}`
-        };
+            return {
+                error: true,
+                message: `Erro ao criar proposta: ${error.message}`
+            };
         }
     
         return {

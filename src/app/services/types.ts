@@ -5,6 +5,32 @@ export interface ResponseSupbase {
     message?: string
 }
 
+
+export type DataLead = {
+  id: string,
+  name: string,
+  whatsapp: string,
+  email: string,
+  document: string,
+  marital_status?: string,
+  profession?: string,
+  is_company: Boolean,
+  responsable_name?: string,
+  responsable_phone?: string,
+  responsable_document?: string,
+  responsable_marital_status?: string,
+  responsable_professional?: string,
+  uc: string,
+  zipcode: string,
+  address: string,
+  number: string,
+  neighborhood: string,
+  state: string,
+  city: string,
+  complement: string
+}
+
+
 export interface UserAuthTypes {
     username: string
     password: string

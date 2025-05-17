@@ -71,20 +71,35 @@ export const SubHeading = styled.h2`
     text-align: center;
 `
 
-export const Input = styled.input`
+interface InputProps {
+    error?: boolean
+}
+
+
+export const Input = styled.input.withConfig({shouldForwardProp: (prop) => prop !== 'error'})<InputProps>`
     width: 100%;
     background-color: #d0cece;
     border-width: 0px 0px 0px 0px;
     border-radius: 15px 15px 15px 15px;
+    border: 1px solid transparent;
+    border-color: ${({error}) => error ? '#f00' : 'transparent'};
     font-size: 20px;
     font-weight: 400;
     color: #000;
     padding: 16px 23px 16px 23px;
     outline: none;
-    margin-bottom: 15px;
     &::placeholder {
         color: #000
     }
+`
+
+export const ErrorField = styled.span`
+    display: flex;
+    margin-bottom:15px;
+    font-weight: bold;
+    color: #f00;
+    font-size: 12px;
+    font-family: "IBM Plex Sans", sans-serif;
 `
 
 export const Container = styled.div`
@@ -101,6 +116,18 @@ export const Container = styled.div`
 export const FormControl = styled.div`
     margin-bottom: 30px;
 `
+
+export const FormControlField = styled.div`
+    margin-bottom: 15px;
+`
+
+export const FormControlRadio = styled.div`
+    display: flex;
+    gap: 20px;
+    align-items: center;
+`
+
+
 export const Label = styled.label`
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 20px;
@@ -108,6 +135,17 @@ export const Label = styled.label`
     font-weight: bold;
     margin-bottom: 15px;
     display: block;
+    align-items: center;
+`
+
+export const LabelCheck = styled.label`
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
 `
 
 export const Features = styled.div`

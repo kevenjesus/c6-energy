@@ -388,9 +388,9 @@ const Response = ({desconto, valorDesconto, valorDescontoMes, goToProposal, goTo
         <S.Button type="button" onClick={goToProposal} style={{border: '2px solid #FF5E00', background: 'transparent'}}>
           Simulação em PDF
         </S.Button>
-        {/* <S.Button type="button" onClick={goToContract}>
+        <S.Button type="button" onClick={goToContract}>
           Preencher Proposta
-        </S.Button> */}
+        </S.Button>
       </div>
     </S.ContainerResponse>
   )

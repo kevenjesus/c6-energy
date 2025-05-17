@@ -2,11 +2,77 @@ import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ProposalData } from "./useAdmin"
 import { toast } from "react-toastify"
+import { Inputs } from "../contract/[id]/page"
 
 export default function useContract() {
     const [proposal, setProposal] = useState<ProposalData | null>(null)
     const [loading, setLoading] = useState(true)
     const params = useParams()
+
+    const updateLead = ({
+        name,
+        email,
+        whatsapp,
+        is_company,
+        marital_status,
+        profession,
+        document,
+        responsable_document,
+        responsable_marital_status,
+        responsable_name,
+        responsable_phone,
+        responsable_professional,
+        uc,
+        zipcode,
+        address,
+        city,
+        complement,
+        neighborhood,
+        number,
+        state
+    }: Inputs) => {
+        setLoading(true)
+        try {
+            setTimeout(async () => {
+                await fetch('/api/update-lead', {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type" : "application/json"
+                    },
+                    body: JSON.stringify({
+                        id: proposal?.user.id,
+                        name,
+                        email,
+                        whatsapp,
+                        is_company,
+                        marital_status: marital_status ? marital_status : null,
+                        profession: profession ? profession : null,
+                        document,
+                        responsable_document: responsable_document ? responsable_document : null,
+                        responsable_marital_status: responsable_marital_status ? responsable_marital_status : null,
+                        responsable_name: responsable_name ? responsable_name : null,
+                        responsable_phone: responsable_phone ? responsable_phone : null,
+                        responsable_professional: responsable_professional ? responsable_professional : null,
+                        uc,
+                        zipcode,
+                        address,
+                        city,
+                        complement,
+                        neighborhood,
+                        number,
+                        state
+                    })
+                })
+
+                toast('Proposta atualizada com sucesso', {type: 'success'})
+            }, 1000)
+        } catch (err) {
+            toast('Erro inesperado. Tente novamente', {type: 'error'})
+        } finally {
+            setLoading(false)
+        }
+        
+    }
    
 
     const getProposal = async (id: string) => {
@@ -38,6 +104,7 @@ export default function useContract() {
 
     return {
         proposal,
-        loading
+        loading,
+        updateLead
     }
 }
